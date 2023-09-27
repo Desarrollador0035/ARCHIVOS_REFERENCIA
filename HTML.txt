@@ -1,0 +1,439 @@
+INTRODUCCION
+HTML es un lenguaje de marcado estandar para crear paginas web.
+Describe la estructura de la pagina web
+Los elementos le dicen al navegador como mostrar su contenido.
+
+<!DOCTYPE html> : declaracion define que es un documento HTML
+<html> : elemento raiz de una pagina html, define todo el documento
+<head> : metadatos
+<title> : tituli
+<body> : define el cuerpo del documento y es un contenedor de todos los contenidos visibles.
+
+
+¿QUE ES UN ELEMENTOS?
+Se define mediante una etiqueta de inicio, algo de contenido y una etiqueta de cierre.
+<nombre etiqueta> contenido </nombre de etiqueta>
+Los elementos que no tiene etiqueta final, se les conoce como elementos vacios.
+
+ELEMENTOS ANIDADOS:
+Pueden contener otros elementos.
+
+ATRIBUTOS
+Proporcionan informacion adicional sobre los elementos.
+Siempre se especifican en la etiqueta de inicio.
+Vienen en pares nombre/valor : nombre="valor"
+
+ARIBUTO href
+especifica la URL de una pagina.
+<a href="https://www.w3schools.com">Visit W3Schools</a>
+
+ATRIBUTO src 
+Especifica la ruta de la imagen.
+1-URL absoluta: enlaces a una imagen externa alojada en otro sitio web.
+src="https://www.w3schools.com/mimages/img_girl.jpg"
+2-URL relativa: imagen alojada en el sitio web.
+src="/images/img_girl.jpg"
+
+ATRIBUTO width, heigt
+Especifican el ancho y alto de la imagen en pixeles.
+<img src="img_girl.jpg" width="500" height="600">
+
+ATRIBUTO alt
+Especifica un texto alternativo para una imagen
+<img src="img_girl.jpg" alt="Girl with a jacket">
+
+ATRIBUTO style
+Agrega estilos a un elemento como color,fuete,etc.
+<p style="color:red;">This is a red paragraph.</p>
+
+ATRIBUTO lang
+declara el idioma de la pagina web. ayuda a los motores de busqueday navegadores.
+<html lang="en"></html>
+<html lang="en-US"></html>
+
+ATRIBUTO title
+Define informacion adicional sobre un elemento.
+El valor se mostrara como informacion cuando pase el mouse.
+<p title="im a tooltip">This is a paragraph.</p>
+
+
+
+ENCABEZADOS html
+Son titulos o subtitulos que se desean mostrar en una pagina web.
+<h1> Mas importantes hasta <h6> menos importantes
+
+Los motores de busquedas utilizan los encabezados pra indexar la estructura
+
+
+PARRAFOS
+<p>
+Siempre comienza en una nueva lina y es un bloque de texto.
+Espacio en blanco(margen)
+
+REGLAS HORIZONTALES
+<hr> ruptura tematica y se muestra un linea horizontal.
+separa contenido
+<hr> etiqueta vacia no tiene final.
+
+SALTOS DE LINEA
+<br> etiqueta vacia
+
+ELEMENTO <pre>
+Define Texto preformateado, ancho fijo = Courier, conserva espacios y saltos de linea
+
+
+
+ESTILOS
+ATRIBUTO STYLE: Agrega estilo a un elemento:color,fuente,etc.
+<tagname style = "property:value;">
+Propiedad: propiedad CSS
+Valor : valor CSS
+
+PROPIEDAD CSS background-color
+Define un color de fondo para cada elemento que se quiera agregar.
+<body style = "background-color:powderblue";></body>
+
+PROPIEDAD CSS color
+<h1 style ="color:blue;">This is a heading</h1>
+
+PROPIEDAD CSS font-family
+Define la fuente que se utilizara
+<h1 style ="font-family:verdana;">This is a heading</h1>
+
+PROPIEDAD CSS font-size
+Define el tamaño del texto de un elemento
+<h1 style="font-size:300%;"></h1>
+
+PROPIEDAD CSS text-aling
+Defina la alineacion horizontal del texto
+<h1 style ="text-aling:center;"></h1>
+
+
+
+FORMATO DE TEXTO
+NEGRITA:
+<b></b>
+TEXTO DE IMPORTANCIA
+<strong></strong>
+
+CURSIVA
+<i></i>
+ENFATIZADO
+<em></em>
+
+PEQUEÑO
+<small>Text</small>
+
+RESALTAR TEXTO DE COLOR
+<p>text<mark>text</mark></p>
+
+TACHADO STRIKEOUT
+<p>Text<del>Text</del></p>
+
+SUBRAYADO,<ins>
+<p>text<del>text1</del><ins>text2</ins></p>
+
+SUBINDICE, SUBSCRIPT
+<p>H<sub>2</sub>O</p>
+
+SUPERINDICE
+<p>3<sup>2</sup></p>
+
+
+
+
+
+ELEMENTOS DE CITAS (QUOTATION AND CITATION ELEMENTS)
+
+<blockquote> : Define una seccion que se cita de otra fuente.
+<p>Here is a quote from WWF's website:</p>
+<blockquote cite="http://www.worldwildlife.org/who/index.html">
+For 60 years, WWF has worked to help people and nature thrive. As the world's leading conservation organization, WWF works in nearly 100 countries. At every level, we collaborate with people around the world to develop and deliver innovative solutions that protect communities, wildlife, and the places in which they live.
+</blockquote>
+
+<q> : define una cita breve, inserta comillas alrededor de la cita.
+<p>WWF's goal is to: <q>Build a future where people live in harmony with nature.</q></p>
+
+<abbr>: abreviaturas o un acronimo, util para navedagores, sistemas de traduccion y busqueda
+<p>The <abbr title="World Health Organization">WHO</abbr> was founded in 1948.</p>
+
+<addres> : defina informacion de un contacto, autor, propietario de un documento o articulo.
+Puede se una direccion email, URL, direccion fisica, numero de telefono, redes sociales, etc.
+<address>
+Written by John Doe.<br>
+Visit us at:<br>
+Example.com<br>
+Box 564, Disneyland<br>
+USA
+</address>
+
+<cite> : define el titulo de una obra creativa(un libro, un poema, una cancion, una pelicula,etc)
+El nombre de una persona no es titulo de una obra.
+<p><cite>The Scream</cite> by Edvard Munch. Painted in 1893.</p>
+
+<bdo> : se utiliza para anula la direccion del texto.
+<bdo dir="rtl">This text will be written from right to left</bdo>
+
+
+
+
+COMENTARIOS
+no se muestran en el navegador.
+<!-- Write your comments here -->
+
+
+COLORES
+HTML especifica con nombre de colores predefinidos o con valores:
+RGB: RED, GREEN, BLUE; se define cada intensidad del color con una valor entre 0 y 255, 
+	lo que significa que hay 255 *255 * 255 = 16777216 colores posobles.
+	rgb(255,0,0) muestra el rojo.
+	rgb(0,255,0) muestra el verde.
+	rgb(0,0,0) muestra el negro.
+	rgb(255,255,255) muestra el blanco
+<h1 style="background-color:rgb(255, 0, 0);">rgb(255, 0, 0)</h1>
+
+HEX: notacion numerica #RRVAA hay 256^3 combinacion de colores.
+	RR(rojo), GG(verde), BB(azul)
+	#ff0000 rojo
+	#00ff00 verde
+	#000000 negro
+	#ffffff blanco
+<h1 style="background-color:#ff0000;">#ff0000</h1>
+
+HSL: H(matiz = Hue) S(saturation) L(luminosidad = lightness)
+	hsl(tono,saturacion,luminosidad)
+<h1 style="background-color:hsl(0, 100%, 50%);">hsl(0, 100%, 50%)</h1>
+
+RGBA: (rojo,verde,azul,alfa) se añade un cuarto canal alpha, para crear opacidad.
+HSLA : con opacidad.
+
+
+
+ENLACES
+No necesariamente tiene que ser texto, puede ser una imagen o otro elemeto HTML.
+<a> : este etiqueta define un jipervinculo 
+<a href="https://www.w3schools.com/">Visit W3Schools.com!</a>
+El atributo href: indica el destino de enlace.
+Atributos para especificar el destino del enlace:
+	target = especifica donde abrir el documento con los siguientes valores:
+		_sefl: abre el documento en la misma ventan/pestaña.
+		_blank: abre el documento en una nueva ventana/pestaña
+		_parent: abre el documento en el marco principal
+		_top: abre el documento en el cuerpo completo de la ventana.
+<a href="https://www.w3schools.com/" target="_blank">Visit W3Schools!</a>
+
+<h2>Absolute URLs</h2>
+<p><a href="https://www.w3.org/">W3C</a></p>
+<p><a href="https://www.google.com/">Google</a></p>
+utiliza una direccion web completa.
+
+<h2>Relative URLs</h2>
+<p><a href="html_images.asp">HTML Images</a></p>
+<p><a href="/css/default.asp">CSS Tutorial</a></p>
+Un enlace local sin utilizar https://www.
+
+UTILIZAR UNA IMAGEN COMO ENLACE:
+<a href="default.asp">
+<img src="smiley.gif" alt="HTML tutorial" style="width:42px;height:42px;">
+</a>
+
+ENLACE DE UNA DIRECCION DE CORREO ELECTRONICO:
+<a href="mailto:someone@example.com">Send email</a>
+
+TITULOS EN LOS ENLACES:
+<a href="https://www.w3schools.com/html/" title="Go to W3Schools HTML section">Visit our HTML Tutorial</a>
+
+VINCULAR CON UNA PAGINA WEB
+<a href="https://www.w3schools.com/html/default.asp">HTML tutorial</a>
+
+ENLACE DE UNA PAGINA UBICADA EN LA CARPETA HTML
+<a href="/html/default.asp">HTML tutorial</a>
+
+ENLACE A UNA PAGINA UBICADA EN LA MISMA CARPETA QUE LA PAGINA ACTUAL
+<a href="default.asp">HTML tutorial</a>
+
+
+
+
+IMAGENES
+<img> : se utiliza para incrustar una imagen; las imagenes no se insertan, estan vinculadas a paginas web,
+esta etiqueta crea un espacio de retencion para la imagen a la que se hace referencia.
+Es una etiqueta vacia que contiene 2 atributos obligatorios:
+	src: especifica la ruta de la imagen.
+	alt: especifica un texto alternativo para la imagen.
+<img src="img_chania.jpg" alt="Flowers in Chania">
+
+ANCHO Y ALTO DE LA IMAGEN
+Se utiliza el atributo style:
+<img src="img_girl.jpg" alt="Girl in a jacket" style="width:500px;height:600px;">
+alternativamente se utiliza tambien solo los atributos width y height:
+<img src="img_girl.jpg" alt="Girl in a jacket" width="500" height="600">
+Si no se especifica el ancho y alto de una imagen, la pagina web puede parpadear mientras se
+carga la imagen.
+
+IMAGENES EN OTRA CARPETA
+se determina utilizando el atributo src:
+<img src="/images/html5.gif" alt="HTML5 Icon" style="width:128px;height:128px;">
+
+IMAGENE DE OTRO SITIO WEB
+se especifica mediante una URL absoluta con el atributo src:
+<img src="https://www.w3schools.com/images/w3schools_green.jpg" alt="W3Schools.com">
+
+IMAGENES ANIMADAS
+<img src="programming.gif" alt="Computer Man" style="width:48px;height:48px;">
+
+IMAGEN COMO ENLACE
+Se colo la <img> dentro de <a>
+<a href="default.asp">
+  <img src="smiley.gif" alt="HTML tutorial" style="width:42px;height:42px;">
+</a>
+
+IMAGEN FLOTANTE
+PROPIEDAD CSS float: permita que la imagen flote hacia la derecha o izquierda de un texto.
+<p><img src="smiley.gif" alt="Smiley face" style="float:left;width:42px;height:42px;">
+The image will float to the left of the text.</p>
+
+MAPA DE IMAGENES(IMAGE MAPS)
+Se pueden crear areas en las que se pueden hacer clic en una imagen.
+<map> 
+
+<img src="workplace.jpg" alt="Workplace" usemap="#workmap">
+<map name="workmap">
+  <area shape="rect" coords="34,44,270,350" alt="Computer" href="computer.htm">
+  <area shape="rect" coords="290,172,333,250" alt="Phone" href="phone.htm">
+  <area shape="circle" coords="337,300,44" alt="Coffee" href="coffee.htm">
+</map>
+
+La idea detras de un mapa de imagenes es que deberia poder realizar diferentes acciones dependiendo en que parte de la 
+imagen haga clic
+
+1-La imagen se inserta:
+<img src = "workplace.jpg" alt="Workplace" usemap="#workmap">
+usemap: valor que comienza con una etiqueta hash # seguida del nombre del mapa de imagen y se utiliza para crear una relacion entre la imagen y el mapa de imagen.
+2-Crear mapa de imagen: 
+Se utiliza el elemento <map> para crear un mapa de iamgen y esta vinculado a la imagen mediante el atributo name.
+<map name ="workmap">
+El atributo name debe tener el mismo valor que el atributo <img> de usemap.
+3-Las areas
+Agregar la areas que se pueden hacer clic.
+Se definen con el elemento <area>.
+Forma se define con los siguientes valores
+*rect=define una region rectangular
+*circle=define una region circular
+*poly=define una region poligonal
+*default=define toda la region.
+Tambien se deben definir algunas coordenadas para poder colocar el area en la que se puede hacer clic.
+
+IMAGENES DE FONDO
+Se especifica una imagen de fondo para casi cualquier elemento HTML.
+Se utiliza el atributo HTML : style.
+Se utiliza la propiedad CSS : background-image
+<p style="background-image: url('img_girl.jpg');">
+
+ELEMENTO <picture>
+Permite mostrar diferentes imagenes para diferentes dispositivos o tamaños de pantalla.
+Puede contener uno mas <source>, cada uno de los cuales hace referencia a diferentes iamgenes a traves del atributo srcset,
+de esta manera el navegador puede elegir la imagen que mejor se ajuste a la vista y/o dispositivo actual.
+cada <source> tiene un atributo media que define cuando la imagen es la adecuada.
+
+<picture>
+	<source media ="(min-width: 650px)" srcset="img_food.jpg">
+	<source media="(min-width: 456px)" srcset="img_car.jpg">
+	<img src="img_girl.jpg">
+</picture>
+
+Especifique siempre un elemento <img> como el ultimo elemento secundario del <picture>. EL elemento <img>
+lo utilizan navegadores que no admiten <picture> o si ninguna del etiquetas coincide <source>
+
+
+
+
+
+FAVICON HTML
+Es una pequeña imagen junto al titulo de la pagina en la pestaña del navegador.
+Puedo crear mis propios favicon con https://www.favicon.cc
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Page Title</title>
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+</head>
+<body>
+
+<h1>This is a Heading</h1>
+<p>This is a paragraph.</p>
+
+</body>
+</html>
+
+
+
+
+TITULO DE UNA PAGINA 
+Cada pagina debe tener un titulo para describir el significado.
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HTML Tutorial</title>
+</head>
+<body>
+
+The content of the document......
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,876 @@
+CSS
+
+SELECTORES CSS
+Se utilizan para buscar o seleccionar los elementos HTML a los que se le desea aplicar el estilo.
+Dividen en 5 categorias:
+
+
+
+
+*SELECTORES SIMPLES: Selecciona los elmentos segun el nombre,identificacion,clase
+
+1-Selectores de identificacion: Un nombre de identificacion no puede empezar con un numero. Se utiliza para seleccionar un elemento
+especifico. La identificacion de un elemento en unica dentro de una pagina. Se utiliza el caracter almohadilla(#)
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+#para1{
+	text-aling : center;
+	color: red;
+}
+
+</style>
+</head>
+<body>
+<p id="para1">Hello World</p>
+</body>
+</hmtl>
+
+2-Selector de la clase: Se utliza para seleccionar elementos de una clase especifica con el caracter punto (.)
+-Todos los elementos con class ="center":
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.center{
+	text-aling : center;
+	color: red;
+}
+</style>
+</head>
+<body>
+<h1 class = "center">Red and Center center-aligned heading</h1>
+<p class = "center"> Red a center-aligned paragraph.</p>
+
+</body>
+</html>
+
+Tambien se puede especificar que una clase solo deba afectar a los elementos especificos HTML.
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+p.class{
+	text-aling : center;
+	color: red;
+}
+</style>
+</head>
+<body>
+<h1>
+<h1 class = "center">This heading will not be affected</h1>
+<p class = "center">This paragraph will be red and center-aligned.</p>
+</h1>
+</body>
+</html>
+
+Tambien puede hacer referencia a mas de una clase
+El elemento <p> se ajustara a class ="center" y class="large"
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+p.center{
+	text-aling : center;
+	color : red;
+}
+
+p.large{
+	font-size : 300%;
+}
+
+</style>
+</head>
+<body>
+<h1 class ="center">THis heading will not be affected</h1>
+<p class = "center">This paragraph will be red and center-aligned</p>
+<p class = "center large">THis paragraph will be red, center-aligned, and in a large font-size.</p>
+</body>
+</hmtl>
+
+3-SELECTOR UNIVERSAL :
+Con el caracter asterisco (*) selecciona todos los elementos HTML
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+* {
+	text-aling : center;
+	color : blue;
+}
+</style>
+</head>
+<body>
+<h1>Hello World</h1>
+<p>Every element on the page will be affected by the style</p>
+<p id = "para1">Me too!</p>
+</body>
+</html>
+
+4-SELECTORES DE AGRUPACION:
+Selecciona todos los elementos HTML con la misma definicion de estilo.
+h1{ text.aling:center; color:red;}
+h2{ text-aling: center; color:red;}
+p{ text-aling : center; color:red;}
+
+Para agrupar los selectores ayuda a minimizar el codigo
+h1,h2,p{text-aling:center; color:red;}
+
+
+
+
+
+*SELECTORES COMBINADOS: Selecciona elementos en funcion de una relacion especifica entre ellos.
+Un combinador es algo que explica la relacion entre los selectores.
+Un selector CSS puede contener mas de un selector simple.
+Hay 4 combinaciones diferentes:
+
+1-SELECTOR DESCENDIENTE: Coincide con todos los elementos que son descendientes de un elemento especifico. Se utiliza un espacio.
+El ejemplo selecciona que todos los elementos<p> estan dentro de los elementos <div>
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+div p { backgorund-color : yellow;}
+
+</style></head>
+<body>
+<h2>Descendant Selector</h2>
+<p> The descendant selector matches all elements that are descendants of a specified element.</p>
+<div>
+	<p> Paragraph 1 in the div</p>
+	<p> Paragraph 2 in the div</p>
+	<section><p>Paragraph 3 in the div.</p></selection>
+</div>
+<p>Paragraph 4 . Not in a div</p>
+
+</body>
+</html>
+
+2-SELECTOR DE HIJOS(CHILD SELECTOR)
+Selecciona los elementos que hijos de un elemento especifico con el simblo (>)
+El siguiente ejemplo selecciona todos los elementos <p> que son hijos de un elemento <div>:
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+div > p{
+	background-color : yellow;
+}
+
+</style>
+</head>
+<body>
+<h2>Child Selectio</h2>
+<p>The child selector (>) select all elements that are the chlidren of a specified element</p>
+<div>
+	<p>Paragraph 1 in the div</p>
+	<p>Paragraph 2 int the div</p>
+	<selection>
+	<!-- not chlid but descendant -->
+	<p>Paragraph 3 int he div (inside a sectio element)</p>
+	</section>
+	<p>Paragraph 4 in the div</p>
+</div>
+	<p>Paragraph 5. Not in a div</p>
+<body>
+</html>
+
+3-SELECTORES HERMANOS ADYACENTES:
+Se utilizan para seleccionar un elemento que esta directamente despues de otro elemento especifico.Se utiliza el simbolo (+).
+Los elementos hermano deben tener el mismo elemento padr y adyacente significa inmediatament siguiente.
+El ejemplo muestra el primer elemento <p> que se coloca inmediatamente despues de los elementos <div>:
+<!DOCTYPE html>
+<html>
+<head><style>
+div + p { background-color : yellow}
+</style></head>
+<body>
+<h2> Adjacent Sibling Selector</h2>
+<p> The + selector is used to select an element that is directly after another specific element</p>
+<p> The following example selects the first p element that are placed inmediately after div elements:</p>
+<div>
+<p>Paragraph 1 in the div</p>
+</div>
+<p>Paragraph 2 after a div.</p> ++++
+<div>
+<p>Paragraph 3 in the div>
+</div>
+<p>Paragraph 4 after a div</p> ++++
+</body>
+</html>
+
+4-SELECTOR GENERAL DE HERMANOS
+Selecciona todos los elementos que son hermanos proximos de un elemento especifico. Se utiliza el simbolo (~)
+El ejemplo selecciona todos lo elementos <p> que son hermanos proximos de los elementos <div>.
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+div ~ p { background-color : yellow;}
+</style>
+</head>
+<body>
+<h2> General Sibling Selector</h2>
+<p>
+The general sibling selector (~) selects all elements that are next siblings of a specified element
+</p>
+<p> Paragraph 1</p>
+<div>
+<p> Paragraph 2</p>
+</div>
+<p>Paragraph 3</p>~~~~
+<code> Some code.</code>
+<p>Paragraph 4</p>~~~~
+<p>Paragraph 5 </p> ~~~~
+</body>
+</html>
+
+
+
+
+
+
+
+*SELECTORES DE PSEUDOCLASES
+pseudo: imitacion, parecido, engañoso
+Se utiliza pseudiclases para definir un estado especial de un elemento.
+Se aplica:
+-Aplicar estilo a un elemnto cuando un usuario pasa el mouse sobre el
+-Diseñe los enlaces visitados y no visitados de manera diferente
+-Aplicar estilo a un elemento cuando recibe el foco.
+SINTAXIS:
+selector : pseudo-class{ property : value;}
+
+1-PSEUDOCLASES DE ANCLAJE(ARCHOR PSEUDO-CLASSES)-
+Los enlaces se pueden mostrar de diferentes maneras.
+<!DOCTYPE html>
+<html>
+<head><style>
+/* unvisted link*/
+a:link{ color :red;}
+
+/*visted link*/
+a:visted{ color: green;}
+
+/*mouse over link*/
+a:hover{ color:hotpink;}
+
+/*selected link*/
+a:active{color : blue;}
+</style></head>
+<body>
+<h2> Styling a link depending on state</h2>
+<!-- href = Hypertext REFerence, donde se escribe la ubicacion del archivo de destino, vincula secciones y paginas -->
+<! -- a : es una etiqueta de anclaje(archor) -->
+<! -- target : espeficifica una ventana de navegador de destino -->
+<p><b><a href = "default.asp" target = "blank"> This a link</a></b></p>
+<p><b>Note : </b> a: hover MUST come after a : link and a }: visted in the CSS definition in order to be effective</p>
+<p><b>Note : </b> a : active MUST come after a:hover int he CSS definition in order to be effective</p>
+</body>
+</html>
+hover debe aparecer despues link y visted en la definicion CSS para que sea efectivo y active debe aparecer despues de hover en la definicion
+para que sea efectivo.
+
+2-PSEUDOCLASES Y CLASES HTML
+Las pseudoclases se pueden combinar con clases HTML.
+Cuando pasas el cursor sobre el enlace en el ejemplo, cambia de color.
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+a.highlight:hover{
+	color: #ff0000;
+	font-size: 22px;
+}
+</style></head>
+<body>
+<h2> Pseudo-classes and HTML Classes</h2>
+<p> When you hover the first link below, it will change color and font size: </p>
+<p><a class = "highlight" href ="css_syntax.asp">CSS Syntax</a></p> **-*--*-*-
+<p><a href = "default.asp">CSS TUTORIAL</a></p>
+</body>
+</html>
+
+
+
+3-COLOCAR EL CURSOR SOBRE <div>
+Ejemplo del uso de la pseudoclase :hover en un elemento <div>:
+<!DOCTYPE html>
+<hmtl>
+<head>
+<style>
+div {
+	background-color : green;
+	color : white;
+	padding : 25px;
+	text-aling : center;
+}
+
+div:hover{
+	background-color:blue;
+}
+
+</style>
+</head>
+<body>
+<p> Mouse over the div element below to change its bakcground color :</p>
+<p> Mouse Over Me</p>
+</body>
+</html>
+
+
+4-DEPLAZAMIENTO SIMPLE DE INFORMACION SOBRE HERRAMIENTAS
+Pase el cursos sobre un elemento <div> para mostrar un elemento <p> (como una informacion sobre herramientas):
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+p{
+	display: none;
+	backgroung-color : yellow;
+	padding : 20 px;
+}
+
+div:hover p {
+	display : block;
+}
+</style>
+</head>
+<body>
+
+<div> Hover over this div element to show the p element
+	<p> Tada! Here I am!</p>
+</div>
+</body>
+</html>
+
+5- PSEUDOCLASE DEL PRIMER HIJO:
+La pseudoclase :first-child coincide con un elemento especifico que es el primer hijo de otro elemento.
+-COINCIDE CON EL PRIMER ELEMENTO <p>
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+p:first-child{ color:blue;}
+</style>
+</head>
+<body>
+<p>This is some text.</p>
+<p>This is some text.</p>
+
+<div>
+	<p>This is some text</p>
+	<p>This is some text</p>
+</div>
+</body>
+</hmtl>
+
+-HAGA COINCIDIR EL PRIMER ELEMENTO <i> EN TODOS LOS ELEMENTOS <p>
+<!DOCTYPE>
+<html>
+<head><style>
+p i:first-chlid{color:blue;}
+</style></head>
+<body>
+<p>I am a <i>strong</i> person. I am a <i>strong</i> person.</p>
+</body>
+</html>
+
+-HAGA COINCIDIR TODOS LOS ELEMENTOS <i> EN TODOS LOS PRIMEROS ELEMENTOS SECUNDARIOS <p>
+<!DOCTYPE html>
+<html>
+<head><style>
+p:first-chlid i{
+	color:blue;
+}
+</style></head>
+<body>
+
+<p>I am a <i>strong</i> person. I am a <i>strong</i> person.</p>
+<p> im a <i> strong</i> person. I am a <i>strong</i> perons.</p>
+
+<div>
+	<p> I am <i>strong</i> person. I am a <i>strong</i> person.</p>
+	<p> i am <i>strong</i> person. I am a <i>strong</i> person.</p>
+</div>
+</body>
+</html>
+
+
+5-PSEUDOCLASE LANG
+La pseudoclase :lang permite definir reglas especiales en diferentes idiomas.
+En el ejemplo, :lang define las comillas para los elementos <q> con lang 0 "no"
+<!DOCTYPE html>
+<html>
+<head><style>
+q:lang(no){ quotes: "~" "~";}
+</style></head>
+<body>
+<p>Some text <q lang = "no"> A quote in a paragraoh</q> Some text.</p>
+<p> In this example, : lang defines the quotaio marks for q elements with lang = "no" :</p>
+</body>
+</html>
+
+/* Estilos para párrafos en inglés */
+p:lang(en) {
+    font-weight: bold;
+    color: blue;
+}
+
+/* Estilos para párrafos en francés */
+p:lang(fr) {
+    font-weight: bold;
+    color: red;
+}
+<p lang="en">This is a paragraph in English.</p>
+<p lang="fr">Ceci est un paragraphe en français.</p>
+
+AGREGAR DIFERENTES ESTILOS A LOS HIPERVINCULOS
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+a.one:link {color:#ff0000;}
+a.one:visited {color:#0000ff;}
+a.one:hover {color:#ffcc00;}
+
+a.two:link {color:#ff0000;}
+a.two:visited {color:#0000ff;}
+a.two:hover {font-size:150%;}
+
+a.three:link {color:#ff0000;}
+a.three:visited {color:#0000ff;}
+a.three:hover {background:#66ff66;}
+
+a.four:link {color:#ff0000;}
+a.four:visited {color:#0000ff;}
+a.four:hover {font-family:monospace;}
+
+a.five:link {color:#ff0000;text-decoration:none;}
+a.five:visited {color:#0000ff;text-decoration:none;}
+a.five:hover {text-decoration:underline;}
+</style>
+</head>
+<body>
+
+<h2>Styling Links</h2>
+
+<p>Mouse over the links and watch them change layout:</p>
+
+<p><b><a class="one" href="default.asp" target="_blank">This link changes color</a></b></p>
+<p><b><a class="two" href="default.asp" target="_blank">This link changes font-size</a></b></p>
+<p><b><a class="three" href="default.asp" target="_blank">This link changes background-color</a></b></p>
+<p><b><a class="four" href="default.asp" target="_blank">This link changes font-family</a></b></p>
+<p><b><a class="five" href="default.asp" target="_blank">This link changes text-decoration</a></b></p>
+
+</body>
+</html>
+
+6-PSEUDOCLASE FOCUS:
+Se utiliza para aplicar estilos a elementos HTML que estan enfocados, que han sido seleccionados por el usuario mediante
+un evento de enfoque, mejora la experiencia del usuario y resalta los elementos interactivos.
+<!DOCTYPE html>
+<html>
+<head><style>
+input:focus{ background-color:yellow;}
+</style></head>
+<body>
+<!-- action: especifica la URL del servidor o el programa que procesara los datos enviados al formulario, determina la accion que se llevara a cabo cuando se envie el fomulario-->
+<!-- method: especifica el metodo HTTP que se utilizara para enviar los datos del formulario al servidor 
+GET : Medotodo. Los datos del formulario se adjuntan a la URL como parametros de consulta
+POST: Los datos del formulario se envian en el cuerpo de la solicitud HTTP en lugar de adjuntarse a la URL -->
+<form action = "/action_page-php" method="get">
+First name : <input type ="text" name="fname"><br>
+Last name : <input type ="text" name ="lname"><br>
+<input type = " submit" value = "Submit">
+</form>
+</body>
+</html>
+
+
+
+
+
+
+
+*SELECTORES PSEUDOELEMENTOS:
+Seleccionan y aplican estilo a una parte de un elemento.
+Se utilizan para diseñar partes especificas de un elemento.
+Se utilizan para:
+-Aplicar estilo a la primera letra o linea de un elemento.
+-Insertar contenido antes o despues del contenido de un elemento.
+
+SINTAXIS:
+selector::pseudo-element{property: value;}
+
+PSEUDOELEMENTO :: DE PRIMERA LINEA
+::first line, se utiliza para agregar un estilo especial a la primera linea de un texto.
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+p::first-line{
+color:#ff0000;
+font-variant:small-caps;
+}
+</style>
+</head>
+<body>
+<p>You can use the :: first-line pseudo-element to add a special effect to the first line of a text. Some more text. And even more, and even more, and even more</p>
+</body>
+</html>
+::el first-line solo se puede aplicar a elementos a nivel de bloque.
+
+PSEUDOELEMENTO ::PRIMERA LETRA
+::first-letter, se utiliza para agregar un estilo especial a la primera letra de un texto.
+<!DOCTYPE html>
+<html>
+<head><style>
+p::first-letter{color: #ff0000;
+font-size: xx-large;}
+</style></head>
+<body>
+<p>You can use the ::first-letter pseudo-element to add a special effect to the first character of a text</p>
+</body>
+</html>
+
+PSEUDOELEMENTOS Y CLASES
+Los pseudoelementos se pueden combinar con clases
+<!DOCTYPE html>
+<html>
+<head><style>
+p.intro::first-letter{
+color:#ff0000;
+font-size: 200%
+}
+</style></head>
+<body>
+<p class = "intro">This is a introduction</p>
+<p>This is a paragraph with some text. A bit more text even.</p>
+</body>
+</html>
+
+MULTIPLES PSEUDOELEMENTOS
+Tambien se pueden combinar varios pseudoelementos.
+<!DOCTYPE html>
+<html>
+<head><style>
+p::first-letter{
+	color:#ff0000;
+	font-size; xx-large;
+}
+p::first-line{
+	color:#0000ff;
+	font-variant: small-caps;
+}
+</style></head>
+<body>
+<You can combine the ::first-letter and ::first-line pseudo-elements to add a special effect to the first letter and the first line of a text!</p>
+</body>
+</html>
+
+PSEUDOELEMENTO ::BEFORE
+::before, se utiliza para insertar algun contenido antes del contenido de un elemento.
+En el ejemplo, se inserta una imagen antes del contenido de cada elemento <h1>:
+<!DOCTYPE html>
+<html>
+<head><style>
+h1::before{ content: url(image.gif);}
+</style></head>
+<body>
+<h1>This a heading</h1>
+<p>The ::before pseudo-element inserts content before the content of an element</p>
+<h1>This a heading</h1>
+</body>
+</html>
+
+PSEUDOELEMENTO ::AFTER
+Se utiliza para insertar algun contenido despues del contenido de un elemento.
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+h1::after {
+  content: url(smiley.gif);
+}
+</style>
+</head>
+<body>
+
+<h1>This is a heading</h1>
+<p>The ::after pseudo-element inserts content after the content of an element.</p>
+
+<h1>This is a heading</h1>
+
+</body>
+</html>
+
+.mi-elemento::before {
+    content: "Antes: ";
+    font-weight: bold;
+}
+
+.mi-elemento::after {
+    content: " Después.";
+    font-style: italic;
+}
+
+
+PSEUDOELEMENTO ::MARKER
+Selecciona los marcadores de los elementos de la lista.
+
+<!DOCTYPE html>
+<html>
+<head><style>
+::marker{ color: red;
+	font-size: 23px;}
+</style></head>
+<body>
+<ul>
+<li>Coffee</li>
+<li>Tea</li>
+</ul>
+<ol>
+<li>First</li>
+<li>Second</li>
+</ol>
+</body>
+</html>
+
+PSEUDOELEMENTO ::SELECTION
+Coincide con la parte de un elemento seleccionada por el usuario al presionar al raton sobre el texto.
+Se le puede aplicar a las propiedades color, background,cursor y outline.
+En el ejemplo hace que el texto seleccionado sea rojo sobre un fondo amarillo.
+<!DOCTYPE html>
+<html>
+<head><style>
+::selection{ color: red;
+background:yellow;}
+</style></head>
+<body>
+<h1>Select some text on this page :</h1>
+<p>This is a paragraog</p>
+<div>This is some text in a div element</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+*SELECTORES DE ATRIBUTOS
+Es posible diseñar elementos HTML que tengan atributos o valores especificos.
+
+SELECTOR CSS [atributo]
+selector [attribute] se utiliza para seleccionar elementos con un atributo especifico.
+En el ejemplo selecciona todos los elementos <a> con un atributo target:
+<!DOCTYPE html>
+<html>
+<head><style>
+
+a[target]{
+
+background-color:yellow;
+}
+
+</style></head>
+<body>
+<h2>CSS [attribute] Selector</h2>
+<p>The links with a target attibute gets a yellos backgorung : </p>
+<a href="https://www.w3schools.com">w3schools.com</a>
+<a href="http://www.disney.com" target="_blank">disney.com</a>
+<a href="http://www.wikipedia.org" target="_top">wikipedia.org</a>
+</body>
+</html>
+
+SELECTOR CSS[atributo = "valor"]
+[attribute = "value"], es un selector con un atributo y valor especifico.
+<!DOCTYPE html>
+<html>
+<head><style>
+a[target="_blank"]{
+	background-color: yellow;
+}
+</style></head>
+<body>
+<h2>CSS [attribute ="value"] Selector</h2>
+<p>The link with target ="blank" get a yello bakcground</p>
+<a href="w3schools.com">w3schools</a>
+<a href ="disney.com" target="_blank">disney</a>
+<a href ="wikipedia.org" target="_top">wikipedia</a>
+</body>
+</hmtl>
+
+SELECTOR CSS[ATRIBUTO~="VALOR"]
+El selector [attribute~="value"] se utiliza para seleccionar con un valor de atributo al que contenga una palabra especifica.
+<!DOCTYPE html>
+<html>
+<head><style>
+[title~="flower"]{
+	border: 5px solid yellow;
+}
+</style></head>
+<body>
+<h2>CSS [attribute~="value"] Selector</h2>
+<p> All images with the title attribute containing the word "flower" get a yellow border</p>
+<img src ="imagen01.jpg" title = "imagen flower" width="150" height="113">
+<img src = "imagen02.jpg" title = "imgen02 flower" width ="224" height ="162">
+<img src = "imagen03.jpg" title = "imagen03 tree" width="200" height="358">
+</body>
+</html>
+
+SELECTOR CSS[ATRIBUTO|="VALOR"]
+El selector[attribute|="value"] selector se utiliza para seleccionar elementos con el atributo especificado, cuyo valor puede ser exactamente
+el valor especificado, o el valor especificado seguido de un guion(-).
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+[class|="top"] {
+  background: yellow;
+}
+</style>
+</head>
+<body>
+
+<h2>CSS [attribute|="value"] Selector</h2>
+
+<h1 class="top-header">Welcome</h1>
+<p class="top-text">Hello world!</p>
+<p class="topcontent">Are you learning CSS?</p>
+
+</body>
+</html>
+
+SELECTOR CSS [ATRIBUTO^="VALOR"]
+Este selector se utiliza para seleccionar elementos con el atributo especificado.
+En el ejemplo elementos que comienza con "top":
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+[class^="top"] {
+  background: yellow;
+}
+</style>
+</head>
+<body>
+<h2>CSS [attribute^="value"] Selector</h2>
+<h1 class="top-header">Welcome</h1>
+<p class="top-text">Hello world!</p>
+<p class="topcontent">Are you learning CSS?</p>
+</body>
+</html>
+
+
+SELECTOR CSS[atributo$="valor"]
+Este selector se utiliza para seleccionar elementos cuyo valor termina con un valor especifico.
+<!DOCTYPE html>
+<html>
+<head>
+<style> 
+[class$="test"] {
+  background: yellow;
+}
+</style>
+</head>
+<body>
+<h2>CSS [attribute$="value"] Selector</h2>
+<div class="first_test">The first div element.</div>
+<div class="second">The second div element.</div>
+<div class="my-test">The third div element.</div>
+<p class="mytest">This is some text in a paragraph.</p>
+</body>
+</html>
+
+SELECTOR CSS[ATRIBUTO*="VALOR"]
+Este selector se utiliza para seleccionar elementos cuyo valor del atriuto contenga un valor especifico.
+En el siguiente ejemplo seleccionar todos los elementos con un valor de atributo de clase que contiene "te"
+<!DOCTYPE html>
+<html>
+<head><style>
+[class*="te"] {
+  background: yellow;
+}
+</style></head>
+<body>
+<h2>CSS [attribute*="value"] Selector</h2>
+<div class="first_test">The first div element.</div>
+<div class="second">The second div element.</div>
+<div class="my-test">The third div element.</div>
+<p class="mytest">This is some text in a paragraph.</p>
+</body>
+</html>
+
+
+FORMAS DE ESTILO
+Los selectores de atributos pueden ser utiles para diseñar formulario sin clase o ID
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+input[type="text"] {
+  width: 150px;
+  display: block;
+  margin-bottom: 10px;
+  background-color: yellow;
+}
+input[type="button"] {
+  width: 120px;
+  margin-left: 35px;
+  display: block;
+}
+</style>
+</head>
+<body>
+<h2>Styling Forms</h2>
+<form name="input" action="" method="get">
+  Firstname:<input type="text" name="Name" value="Peter" size="20">
+  Lastname:<input type="text" name="Name" value="Griffin" size="20">
+  <input type="button" value="Example Button">
+</form>
+</body>
+</html>
+
+
+
+
+
+ORDEN EN CASCADA
+1-Estilo en línea (dentro de un elemento HTML)
+2-Hojas de estilo externas e internas (en la sección principal)
+3-Navegador predeterminado
+
+
+
+
+FONDOS
+Se utiliza para agregar propiedades de fondo de CSS:
+
+*BACKGROUND-COLOR
+Propiedad especifica el color de fondo de un elemento.
+body{background-color: lightblue;}
+
+*OPACIDAD Y TRANSPARENCIA
+Propiedad opacity especifica opacidad/transparencia de un elemento, puede tomar valor de 0.0 a 1.0, cuanto mnor sea el valor
+mas transparente
+div{ background-color: green; opacity: 0.3;}
+Los elementos secundarios heredan la misma transparencia.
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,1250 @@
+GUIA DE SQL
+
+Algunos comandos importantes:
+-SELECT- extrae datos de una base de datos
+SELECCIONAR - 
+	SELECT column1,column2 FROM table_name;
+
+
+
+-DISTINCT-declaracion para devolver solo valores distintos(diferentes).
+DISTINTOS-
+	SELECT DISTINCT column1,column2 FROM table_name;
+	SELECT COUNT(DISTINCT column1) FROM table_name;
+
+	ACCESS:
+		SELECT Count(*) AS new_table
+		FROM (SELECT DISTINCT column1 FROM table_name);
+
+
+
+-WHERE-clausula pra filtar registros. Extae solo aquellos registros que cumplen una condicion especifica.
+DONDE-
+	SELECT column1,column2 FROM table_name WHERE condition;
+
+	Esta clausula contiene operadores:
+	= equal
+		SELECT * FROM table_name WHERE column1 = 100;
+
+
+	> greater than
+		SELECT * FROM table_name WHERE column1 > 100;
+
+
+	< less than
+		SELECT * FROM table_name WHERE column1 < 200;
+
+
+	>= greater than or equal
+	<= less than or equal
+
+
+	BETWEEN between a certain range
+		SELECT * FROM table_name WHERE column1 BETWEEN 50 AND 60;
+
+
+	LIKE Search for a pattern(buscar un patron)
+		SELECT * FROM table_name WHERE column1 LIKE 'a%';
+
+
+
+	IN To specify multiple possible values for a column(multiples valores posibles para una columna)
+		SELECT * FROM table_name WHERE column1 IN (12,98);
+
+La clasula WHERE tambien se puede combinar con los operadores AND,OR, NOT
+AND : muestra un registro si todas las condiciones separadas por AND son verdaderas.
+	SELECT column1,column2 FROM table_name WHERE condition1 AND condition2 AND condition3
+
+OR : muestra un registro si alguna de las condiciones separadas por OR es VERDERA
+	SELECT colunm1, column2 FROM table_name WHERE condition1 OR condition2 OR condition3
+
+NOT : muestra un registro si las condiciones NO ES VERDADERA.
+	SELECT column1,column2 FROM table_name WHERE NOT condition;
+
+Combinacion de los operadores:
+	SELECT * FROM Customers WHERE Country ='Germany' AND (City = 'Berlin' OR City = 'Munchen');
+	SELECT * FROM Customres WHERE NOT Country = 'Germany' AND NOT Country = 'USA';
+
+
+
+-ORDER BY-Palabra clave, clasifica el conjunto de resultados en orden ascendente o descendente.
+	ORDER BY : ordena de forma ascendente de forma predeterminada.
+	DESC : ordena de forma descendente-
+		SELECT column1,column2 FROM table_name ORDER BY colum1, column2 ASC|DESC;
+		SELECT * FROM Customers ORDER BY Country;
+		SELECT * FROM Customers ORDER BY Country DESC;
+		SELECT * FROM Customers ORDER BY Country,CustomerName;
+		SELECT * FROM Customers ORDER BY Country ASC, CustomerName DESC;
+
+
+
+INSERTAR
+-INSERT-declaracion que se utiliza para insertar nuevos registros en una tabla.
+-INSERT INTO- inserta nuevos datos en una base de datos
+	2 formas para declarar la sintaxis
+		INSERT INTO table_name(column1,clomun2,column3)VALUES (value1,value2,value3);
+		INSERT INTO table_name (value1,value2,value3);
+Tambien se pueden insertar datos en tablas especificas:
+	INSERT INTO Customers (CustomerName, City, Country) VALUES ('Cardinal','Stavanger','Norway');
+
+
+VALORES NULOS
+-NULL- es el valor nulo o sin valor de un campo.Se utiliza si el valor es opcional.
+Esdiferente a cero o campo con espacios, es un campo en blanco.
+No se puede utilizar operadores de comparacion como =, < , >
+Se tienen que usar los operadores IS NULL y IS NOT NULL
+	SELECT column_names FROM table_name WHERE column_name IS NULL;
+	SELECT column_names FROM table_name WHERE column_name IS NOT NULL;
+Probar si los valores estan vacios
+	SELECT CustomerName, ContactName, Address FROM Customres WHERE Address IS NULL;
+Probar si los valores no estan vacios
+	SELECT CustomerName,ContactName, Address FROM Customres WHERE Address IS NOT NULL;
+
+
+
+
+ACTUALIZACION
+UPDATE- actualiza datos en una base de datos. Modifica los registros existentes en una tabla
+	UPDATE table_name SET column1 = value1, column2 = value2 WHERE condition;
+Si se omite la clausula WHERE se actualizan todos los registros.
+SET : indica que columnas se actualizaran y los nuevos valores que se asginaran a esas columnas y la clausula WHERE especifica que filas 
+se actualizaras aplicando una codicion para seleccionar los registros que deben actualizarse.
+	UPDATE Customers SET ContactName = 'ALfred Schmidt', City = 'Frankfurt' WHERE CustomerID = 1;
+Actualizar multiples registros:
+	UPDATE Customres SET ContactName = 'Juan' WHERE Country = 'Mexico';
+
+
+
+
+ELIMINAR
+DELETE- elimina datos de una base de datos. Eliminar registros existentes en una tabla
+	DELETE FROM table_name WHERE condition;
+Si se omite la clausula WHERE eliminara todos los registros de la tabla
+	DELETE FROM Customers WHERE CustomrName = ' Alfreds Futterkiste';
+Eliminar todos los registros
+DELETE FROM Customres;
+
+
+
+
+SELECCIONAR PARTE SUPERIOR
+-SELECT TOP- Clausula para especificar el numeros de registros a devolver.Es util en tablas grandes con miles de registros. Devolver una gran 
+cantidad de registros puede afectar el rendimiento.
+Limia el numero de filas que se recuperan de una consulta, recupera las primeras N filas de un conjunto de resultados, donde N es un numero que 
+se especifica en la consulta.
+Sintaxis varia segun el SGBD:
+	Access:
+		SELECT TOP N column1, column2, ...
+		FROM table_name
+		WHERE condition
+		ORDER BY some_column;
+	MySQL:
+		SELECT column1, column2, ...
+		FROM table_name
+		WHERE condition
+		LIMIT N;
+En MySQL se utiliza LIMIT y N representa el numeros de filas que se desea obtener.
+	SELECT TOP 3 * FROM Customers;
+	SELECT * FROM Customers LIMIT 3;
+
+TOP PORCENT(Porcentaje SUperios de los registros)
+SELECT TOP 50 PERCENT * FROM Customers;
+SELECT TOP 3 * FROM Customers WHERE Country = 'Germany';
+SELECT * FROM CUstomres WHERE Country = 'Germany' LIMIT 3;
+
+
+
+
+FUNCIONES MIN() Y MAX()
+-MIN()- devuelve el valor mas pequeño de la columna seleccionada.
+-MAX()- devuelve el valor mas grande de la columna seleccionada.
+	SELECT MIN(column_name) FROM table_name WHERE condition;
+	SELECT MAX(column_name) FROM table_name WHERE condition;
+	SELECT MIN(Price) AS SmallestPrice FROM Products;
+	SELECT MAX(Price) AS LargestPrice FROM Products;
+
+
+Las funciones de agregacion se pueden utilizar en combinacion con otras funciones de agegacion o con la clausula ORDER BY.
+FUNCION COUNT()
+Es una funcion de agregacion para contar el numero de filas que cumplen una determinada condicion dentro de una consulta.
+-COUNT()- devuelve el numero de filas que coincide con un criterio especifico.
+	SELECT COUNT (column_name) FROM table_name WHERE condition;
+column_name : nombre de la columna que deseas contar, se usa * para contar todas las filas de la tabla.
+table_name : nombre de la tabla de la cual deseas contar las filas.
+condition : clausula opcional que filtra las filas antes de contarlas.
+Contar todas las filas de una tabla :
+	SELECT COUNT(*) AS TotalRows FROM Customers;
+Contar el numero de cliente que tienen mas de 30 años
+	SELECT COUNT(*) AS CustomresOver30 FROM Customres WHERE Age > 30;
+
+
+FUNCION AVG() 
+Funcion de agregacion que se utiliza para calcular el promedio de los valores numericos en una columna especifica de una tabla;
+-AVG()-Funcion que devuelve el valor promedio de una columna numerica.
+SELECT AVG(column_name) FROM table_name WHERE condition;
+Calcular el promedio de las edades de los clientes
+	SELECT AVG(Age) AS AverageAge FROM Customers;
+Calcular el promedio de los precios de los productos que tiene un stock mayor que 0
+	SELECT AVG(Price) AS AveragePrice FROM Products WHERE Stock > 0;
+
+
+FUNCION SUM()
+Funcion de agregacion para calcular suma en una columna especifica de una tabla
+-SUM()- Devuelve la suma total de una columna numerica.
+	SELECT SUM(column_name) FROM table_name WHERE condition;
+Calcular la suma total de las ventas
+	SELECT SUM(Amount) AS TotalSales FROM Sales;
+Calcular los precios de los prodcutods que tienen un stock mayor que 0
+	SELECT SUM(Price) AS TotalPrice FROM Products WHERE Stock > 0;
+
+
+
+OPERADOR LIKE
+-LIKE- Operador que se usa con la clausula WHERE para buscar un patron especifico en una columna.
+-COMO-
+Tiene 2 comodines que se usan a menudo junto con el operador LIKE:
+	% : porcetaje representa cero, uno o varios caracteres.
+	_ : subrayado representa un solo caracter.
+En Access se utiliza * en vez de % y ? en vez de _ .
+Ambos simbolos se pueden combinar
+	SELECT colunm1,column2 FROM table_name WHERE columnN LIKE pattern;
+Seleccionar todos los clientes que empiezen con la letra a.
+	SELECT * FROM Customres WHERE CustomerName LIKE 'a%';
+Seleccionar todos los clientes que terminar con la letra a
+	SELECT * FROM Customers WHERE CustomerName LIKE '%a';
+Seleccionar todos los clientes con un nombre de cliente que tiene "bo" en cualquier posicion:
+	SELECT * FROM Customres WHERE CustomerName LIKE '%bo%';
+	--Busca los valores que contengan la subcadena bo
+	--BUscar patrones en una columna de texto
+Seleccionar todos los registros donde el valor del columna city contenga la letra a :
+	SELECT * FROM Customres WHERE city LIKE '%a%';
+Seleccionar todos los clientes con un CustomerName que tienen "r" en la segunda posicion:
+	SELECT *FROM Customres WHERE CustomerName LIKE '_r%';
+Seleccionar todos los clientes con un nombre de cliente que comineza con "a" y tiene al menos 3 carateres de longitud:
+	SELECT * FROM cUSTOMRES where cuSTOMERnAME like 'a__%';
+Selecciona todos los clientes con un COntacName que comienza con "a" y termina con "o":
+	SELECT * FROM Customres WHERE COntacName LIKE 'a%o';
+Selecciona todos lo clientes con un CustomerName que no comineza con "a" :
+	SELECT * FROM Customres WHERE CustomerName NOT LIKE 'a%';
+
+
+COMODINES - WILDCARD
+Se utilizan para sustituir uno mas caracteres en una cadena.
+Selecciona todos los clientes con una ciudad que comience con cualquier caracter, seguido de "ondon":
+	SELECT * FROM Customers WHERE city LIKE 'ondon';
+Selecciona todos los clientes con una ciudad que comienza con "L", seguido de caulquier caracter, seguido de "n", seguido de
+cualquier caracter. seguido de "on":
+	SELECT * FROM Customres WHERE city LIKE 'L_n_on';
+Uso del comodin [charlist]
+Selecciona todos los clientes con una ciudad que comineza con "b","s" o "p":
+	SELECT * FROM Customres WHERE city LIKE '[bsp]%';
+Seleccionar todos los clientes con una ciudad que comienza con "a","b" o "c":
+	SELECT * FROM Customres WHERE city LIKE '[a-c]%';
+
+Seleccionar todos lo clientes con una ciudad que no comienza con "b","s" o "p":
+	SELECT * FROM Customres WHERE city LIKE '[!bsp]%';
+	SELECT * FROM Customers WHERE city NOT LIKE '[bsp]%';
+
+
+
+OPERADOR IN 
+-IN- permite especificar varios valores en una clausula WHERE, ademas es una forma de varias condiciones OR:
+	SELECT column_name(s) FROM table_name WHERE column_name IN (value,value2);
+	SELECT column_name FROM table_name WHERE column_name IN (SELECT STATEMENT);
+Selecciona todos los clientes que se encuentran en Alemania, Francia, Reino Unido:
+	SELECT * FROM Customres WHERE country IN ('Germany, 'France',UK');
+Selecciona todos los clientes que NO se encuentran en "alemania","francia,"uk":
+	SELECT * FROM Customres WHERE country NOT IN ('Germany','France','UK');
+
+Seleccionar todos los clientes que son de los mismos paises que los proveeedores:
+	SELECT * FROM Customers WHERE country IN (SELECT country FROM suppliers);
+
+
+
+
+
+OPERADOR BETWEEN
+-BETWEEN- Proporciona valores dentro de un rango dado de cualquier tipo de dato, es inclusivo valor inicial y final.
+	SELECT column_name FROM table_name WHERE column_name BETWEEN value1 AND value2;
+Selecciona todos los productos con un precio entre 10 y 20 :
+	SELECT * FROM products WHERE price BETWEEN 10 AND 20;
+Mostrar fuera del rango
+	SELECT * FROM products WHERE price NOT BETWEEN 10 AND 20;
+Seleccionar todos lo prodcutos con un precio entre 10 y 20, ademas no se debe mostrar productos con un Category ID de 1,2,3 :
+	SELECT * FROM Products WHERE price BETWEEN 10 AND 20 AND CategoryID NOT IN (1,2,3);
+Selecciona todos lo productos con un ProductName entre Carnarvon Tigers y Mozarrella di Giovanni:
+	SELECT * FROM Products WHERE ProductName BETWEEN 'Carnavon Tigers' AND ' Mozzarella di Giovanni' ORDER BY ProductName;
+Selecciona todos los productos con un ProdcutName que no este entre Carnarvon Tigers y Mozarrella di Giovanni:
+	SELECT * FROM Products WHERE ProductName NOT BETWEEN 'Carnarvon Tigers' AND 'Mozzarella di Giovanni' ORDER BY ProductName;
+
+
+
+
+
+ALIAS AS
+-AS- Se utilizan para dar a una tabla, o a una columna un nombre temporal, se utilizan a menudo para hacer que los nombres de las columnas
+sean mas legibles.
+Un alias solo existe mientras dure esa consulta.
+Alias columna:
+	SELECT column_name AS alias_nam FROM table_name;
+Crear 2 alias, uno para la columna CustomreID y otra para la columna CustomerName:
+	SELECT CustomerID AS ID, CustomerName AS Customer FROM Customers;
+Si el nombre del alias tiene espacios se utiliza corchetes
+	SELECT Customername AS Customer, ContactName AS [Contact Person] FROM Customers;
+Crear un alias llamado Direccion que combina 4 columnas(Direccion,Codigo Postal,Ciudad y Pais):
+	SELECT CustomerName, Address + ' , ' +PostalCode + ' ' + City + ', '+Country AS Address FROM Customers;
+	--MySQL
+	SELECT CustomerName, CONCAT(Address,', ',PostalCode,', ',City,', ',Country) AS Address FROM Customers;
+Alias tabla:
+	SELECT column_name FROM table_name AS alias_name;
+Seleccionar todos los pedidos del cliente con CustomerID=4(Around the Horn). Usamos las tablas Cliente y Pedidos, y le damos
+los alias de tabla de "c" y "o":
+	SELECT o.OrderID, o.OrderDate, c.CustomerName FROM Customers AS c, Orders AS o WHERE c.CustomerName='Around the Horn' AND c.CustomerID =o.CustomerID;
+Sin alias
+	SELECT Orders.OrderID, Orders.OrderDate, Customres.CustomerName FROM Customres, Orders WHERE Customres.CustomerName = 'Around the Horn' AND Customres.CustomreID = Orders.CustomerID;
+Utilidad de los alias:
+	Hay mas de una involucrada en la conulta
+	Las funciones se utilizan en la consulta
+	Los nombres de las columnas son grandes o no muy legibles
+	Dos o mas columnas se combinan juntas.
+
+
+UNIONES JOIN
+-JOIN- clausula qie se usa para combinar filas de dos o mas tablas, em funcion de una columna relacionada entre ellas.
+
+
+COMBINACION INTERNA INNER JOIN
+-INNER JOIN- Selecciona registros que tienen valores coincidentes en ambas tablas.
+	SELECT column_name FROM table1 INNER JOIN table2 ON table1.column_name = table2.column_name;
+Seleccionar todos los pedidos con informacion del cliente:
+	SELECT Orders.OrderID, Customers.CustomerName FROM Orders INNER JOIN Customers ON Orders.CustomerID = Customers.CUstomerID;
+	--Debe existir coincidencia entre las columnas para que se muestre la informacion.
+ON : se utiliza en la clausula JOIN para especificar la combinacion entre dos tablas. Especifica como las filas de dos tablas deben combinarse en
+funcion de los valores de una o mas columnas comunes.
+	SELECT column1, column2, ...
+	FROM table1
+	JOIN table2 ON table1.column_name = table2.column_name;
+Selecciona todos los pedidos con informacion del cliente y del remitente:
+	SELECT Order.OrderID, CUstomers.CustomrName, Shippers.Shippers.ShipperName 
+	FROM ((Orders
+	INNER JOIN Customers ON Orders.CustomerID = Customres.CustomerID)
+	INNER JOIN Shippers ON Orders.ShipperID = Shippers.ShipperID);
+
+
+
+UNION IZQUIERDA LEFT JOIN LEFT OUTER JOIN
+-LEFT JOIN- Devuelve todos los registros de la tabla de la izquierda(tabla 1) y los registros coincidentes de la tabla de la derecha(tabla 2).
+El resultado es 0 registro del lado derecho si no hay coincidencia.
+	SELECT column_name FROM table1 LEFT JOIN table2 ON table1.column_name = table2.column_name;
+
+
+UNION DERECHA RIGHT JOIN
+-RIGHT JOIN- Devuelve todos los registros de la tabla de la derecha (tabla 2) y los registros coincidentes de la tabla de la izquierda(tabla 1).
+El resultado es 0 registros del lado izquiero, si no hay ninguna coincidencia.
+	SELECT column_name FROM table1 RIGHT JOIN table2 ON table1.column_name = table2.column_name;
+
+
+
+UNION COMPLETA FULL OUTER JOIN FULL JOIN
+-FULL OUTER JOIN- Devuelve todos los registros cuando hay una coincidencia en los registros de la tabla izquierda(tabla1) o derecha(tabla2)
+	SELECT column_name FROM table1 FULL OTER JOIN table2 ON table1.column_name = table2.column_name WHERE condition;
+Selecciona todos los clientes y los pedidos
+	SELECT Customres.CustomerName, Orders.OrderID
+	FROM Customres
+	FULL OUTER JOIN Orders ON Customers.CustomerID=Orders.CustomerID
+	ORDER BY Customers.CustomerName;
+
+
+UNION AUTOMATICA SELF JOIN
+-SELF JOIN- es una union nomral, pero la tabla se une consigo misma.
+	SELECT column_name FROM table1 T1 table2 T2 WHERE condition;
+	--T1 y T2 son alias de tablas diferentes para la misma tabla	
+Cliente que son de la misma ciudad
+	SELECT A.CustomerName AS CustomerName1, B.CustomerName AS CustomerName2, A.City
+	FROM Customers A, Customers B
+	WHERE A.CustomerID <> B.CustomerID
+	AND A.City = B.City
+	Order BY A.City;
+
+
+UNION
+-UNION- Es un operador que se utiliza para combinar el conjunto de resultados de dos o mas declaraciones SELECT
+	Cada declaracion SELECT dentro UNION debe tener el mismo numero de columnas.
+	Las columnas tambien deben tener tipos de datos similares
+	Las columnas en cada SELECT declracion tambien deben estar en el mismo orden.
+		SELECT column_name FROM table1
+		UNION
+		SELECT column_name FROM table2;
+
+El operador UNION selecciona solo valores distintos por defecto. Para permitir duplicado utiliza UNION ALL:
+	SELECT column_name FROM table1
+	UNION ALL
+	SELECT column_name FROM table2;
+Los nombres de las columnas en el cojunto de resultados suelen ser iguales a los nombres de las columnas en la primera instruccion SELECT.
+Devolver las ciudades(solo valores distintos) de las tablas "Clientes" y "Proveedores":
+	SELECT City FROM Customers
+	UNION
+	SELECT City FROM Suppliers
+	ORDER BY City;
+Devolver las ciudades alemanas(solo valores distintos) de las tablas "Clientes" y "Proveedores":
+	SELECT City, COuntry FROM Customres
+	WHERE COuntry = 'Germany'
+	UNION
+	SELECT City, Country FROM Suppliers
+	WHERE Country = 'Germany'
+	ORDER BY City;
+Enumerar todos los clientes y proveedores
+	SELECT 'Customer' AS Type, ContactName, City, Country
+	FROM Customers
+	UNION
+	SELECT 'Supplier', ContactName, City, Country
+	FROM Suppliers;
+
+
+
+GRUPO POR GROUP BY
+-GROUP BY- Declaracion que agrupa filas que tiene los mismo valores de resumen.
+Utiliza funciones agregadas para agrupar el conjunto de resultados por una o mas columnas: COUNT(),MAX(),MIN(),SUM(),AVG()
+	SELECT column_name FROM table_name WHERE condition GROUP BY column_name ORDER BY column_name;
+Enumerar el numero de clientes en cada pais:
+	SELECT COUNT(CustomerID),COuntry FROM Customres GROUP BY Country;
+Enumerar el numero de clientes en cada pais, ordenados de mayor a menor:
+	SELECT COUNT(CustomerID), Country
+	FROM Customres
+	GROUP BY Country
+	ORDER BY COUNT(CustomresID)DESC;
+GROUP BY con JOIN
+Enumera la cantidad de pedidos enviadios por cada remitente:
+	SELECT Shippers.ShipperName, COUNT(Orders.OrderID) AS NUmerOfOrders FROM Orders
+	LEFT JOIN Shippers ON Order.ShipperID = Shippers.ShipperID
+	GROUP BY ShiperName;
+
+
+
+TENIENDO HAVING
+-HAVING- Es una clausula donde WHERE no puede usar funciones agregadas.
+	SELECT column_name
+	FROM table_name
+	WHERE condition
+	GROUP BY column_name
+	HAVING condition
+	ORDER BY column_name;
+Enumera la cantidad de clientes en cada pais. Solo incluye paises con mas de 5 clientes:
+	SELECT COUNT(CustomreID),Country
+	FROM Customres
+	GROUP BY Country
+	HAVING COUNT(CustomerID) > 5;
+Enumera la cantidad de clientes en cada pais, ordenados de mayor a menor(solo incluye paises con mas de 5 clientes)
+	SELECT COUNT(CustomrID), Country
+	FROM Customers
+	GROUP BY Country
+	HAVING COUNT (CustomrID) > 5
+	ORDER BY COUNT (CustomerID) DESC;
+Enumera los empleados que han registrado mas de 10 pedidos
+	SELECT Employees.LastName, COUNT(Orders.OrderID) AS NumerOfOrders
+	FROM (Orders
+	INNER JOIN Employees ON Orders.EmployeeID = Employees.EmployeeID)
+	GROUP BY LastName
+	HAVING COUNT (Orders.OrderID) > 10;
+Enumera si los empleados "Davolio" o "Fuller" has registrado mas de 25 pedidos
+	SELECT Employees.LastName, COUNT(Orders.OrderID) AS NumberOfOrders
+	FROM Orders
+	INNER JOIN Employees ON Orders.EmployeeID = Employees.EmployeeID
+	WHERE LastName = 'Davolio' OR LastName = 'Fuller'
+	GROUP BY LastName
+	HAVING COUNT(Orders.OrderID) > 25;
+
+
+EXISTE EXITS
+-EXISTS- Operador para probar la existencia de cualquier registro en una subconsulta,el operador que devuelve es verdadero.
+	SELECT column_name FROM table_name WHERE EXIST (SELECT column_name FROM table_name WHERE condition);
+Devuelve Verdadero y enumera los proveedores con un precio de prodcuto inferior a 20:
+	SELECT SupplierName FROM Suppliers WHERE EXISTS (SELECT ProductName FROM Products WHERE Products.SupplierID = Suppliers.supplierID AND Price < 20);
+
+
+
+
+
+OPERADOR CUALQUIERA, TODO ANY,ALL
+-ANY,ALL- Permiten realizar una comparacion entre un valor de una sola columna y un rango de otros valores.
+ANY : devuelve un valor booleano como resultado; devuelve verdaero si aluno de los valores de la subconsulta cumple la condicion.
+ANY significa que la condicion sera verdera si la operacion es verdadera para cualquiera de los valores en el rango.
+	SELECT column_name
+	FROM table_name
+	WHERE column_name operator ANY
+		(SELECT column_name
+		FROM table_name
+		WHERE condition);
+
+Enumero el nombre del producto si encuentra cualquier registro en la tabla detalles del pedido que tenga una cantidad igual a 10.
+	SELECT ProdcutName
+	FROM Products
+	WHERE ProductID = ANY
+	 (SELECT ProductID
+	  FROM OrderDEtails
+	  WHERE Quantity = 10);
+
+Enumera el nombre del producto si encuentra cualquier registro en la tabla detalles del pedido que tenga una cantidad superior a 99
+	SELECT ProductName
+	FROM Products
+	WHERE ProductID = ANY
+	 (SELECT ProductoID
+	  FROM OrderDetails
+	  WHERE Quantity > 99);
+
+Enumera el nombre del producto su encuentra cualquier registro en la tabla detalles del pedido que tenga una cantidad superior a 100(devolvera falso porque la columna cantidad no tiene valores
+superiores a 1000:
+	SELECT ProductName
+	FROM Products
+	WHERE ProductID
+	 (SELECT ProductID
+	  FROM OrderDetails
+	  WHERE Quantity > 1000);
+
+
+El operador debe ser un operador de comparacion estandar(=,<>,!=,>,>=,< o <=)
+ALL : devuelve un valor booleano como resultado, devuelve verdadero todos los valores de la subconsulta cumplen la condicion, usa SELECT con declaracion WHERE y HAVING.
+
+Sintaxis con SELECT
+	SELECT ALL column_name
+	FROM table_name
+	WHERE condition;
+Sintaxion con WHERE o HAVING
+	SELECT column_name
+	FROM table_name
+	WHERE column_name operator ALL
+	 (SELECT column_name
+	  FROM table_name
+	  WHERE condition);
+
+Enumera todos los nombres de los productos
+	SELECT ALL ProdcutName
+	FROM Products
+	WHERE TRUE;
+
+Enumera el nombre del prodcuto si TODOS los registros en la tabla detalles del pedido tiene una cantidad igual a 10. Devolvera FALSO porque la columna cantidad
+tiene mucho valores diferentes(no solo el valor 10):
+	SELECT ProductName
+	FROM Products
+	WHERE ProductID = ALL
+	 (SELECT ProductID
+	  FROM OrderDetails
+	  WHERE Quantity = 10);
+
+
+
+
+
+
+DECLARACION SELECCIONAR EN SELECT INTO
+-SELECT INTO- Copia datos de una tabla en una nueva tabla.
+
+Copiar todas las columnas en una nueva tabla:
+	SELECT * INTO newtable[IN externaldb]
+	FROM oldtable
+	WHERE condition;
+
+Copie solo algunas columnas en una nueva tabla:
+	SELECT column1,column2,column3
+	INTO newtable[IN externaldb]
+	FROM oldtable
+	WHERE condition;
+
+Crear una copia de seguridad del clientes
+	SELECT *INTO CustomersBackup2017 FROM Customres;
+
+La siguiente instruccion SQL usal la clausula IN para copiar la tabla en una nueva tabla en otra base de datos:
+	SELECT * INTO CustomresBackup2017 IN 'Backup.mdb' FROM Customrers;
+
+Copiar solo unas pocas columnas en una nueva tabla:
+	SELECT CustomerName, ContactName INTO CustomresBackup2017 FROM Customers;
+
+Copiar solo los clientes alemanes en una nueva tabla :
+	SELECT * INTO CustomersGermany FROM Customers WHERE COuntry = 'Germany';
+
+Copia datos de mas de una tabla en una nueva tabla :
+	SELECT Customers.CustomerName, Orders.OrderID
+	INTO CustomersOrderBackup2017
+	FROM Customers
+	LEFT JOIN Orders ON Customers.CUstomerID = Orders.CustomerID;
+
+Se puede crear una nueva tabla vacia usando el esquema de otra.
+	SELECT * INTO newtable FROM oldtable WHERE 1 = 0;
+
+
+
+
+
+INSTRUCCION INSERTAR SELECCIONAR INSERT INTO SELECT
+-INSERT INTO SELECT- Copia datos de una tabla y los inserta en otra tabla; declaracion requiere que los tipos de datos en la tablas de origen y de destino coincidan.
+Los registros exitentes en otras tablas no se ven afectados
+Copiar todas las columnas de una tabla a otra tabla:
+	INSERT INTO table2
+	SELECT * FROM table1
+	WHERE condition;
+Copie algunas columnas de una tabla en otra tabla :
+	INSERT INTO table2(column1, column2, column3)
+	SELECT column1, column2, column3
+	FROM table1
+	WHERE condition;
+
+Copiar Proveedores en CLientes(Las columnas que no estan llenas de daros contendran NULL):
+	INSERT INTO CUstomres (CustomerName,City,Country)
+	SELECT SupplierName, CIty, Country FROM Suppliers;
+
+Copia Proveedores en Clientes (llene todas las columnas):
+	INSERT INTO Customres(CustomerName,COntactName,Address,City,PostalCOde,Country)
+	SELECT SuplierName, ContactName, Address, CIty, PostalCOde, COuntry FROM Suppliers;
+
+Copia solo los proveedores alemanes en clientes : 
+	INSERT INTO Customres(CustomresName,City,Country)
+	SELECT SupplierName, City, Country FROM Suppliers
+	WHERE Country = 'Germany';
+
+
+
+
+
+
+CASO EXPRESION CASE
+-CASE- pasa por la condiciones y devuelve un valor cuando se cumple la primera condicion(como if-then-else); una vez que su condicion es verdadera, dejara de leer y devolvera el resultado. Si
+	ninguna condicion es verdadera,devuelve el valor de la clausula ELSA.
+	Si no hay ELSE y ninguna condicion es verdadera, devuelve NULL.
+		CASE 
+		  WHEN condition1 THEN result1
+		  WHEN conditionN THEN resultN
+		  ELSE result
+		END;
+
+Devuelve un valor cuando se cumple la primera condicion:
+	SELECT OrderID, Quantity,
+	CASE
+	 WHEN Quantity > 30 THEN 'The quantity is greater than 30'
+	 WHEN Quantity = 30 THEN 'The quantity is 30'
+	 ELSE 'The quantity is under 30'
+	END AS QuantityText
+	FROM OrderDetails;
+
+Odernar los clientes por ciudad. Sin embargo, si la ciudad es NULL, ordena por pais:
+	SELECT CustomerName, City, Country
+	FROM Customres
+	ORDER BY
+	(CASE 
+	  WHEN City IS NULL THEN Country
+	  ELSE City
+	END);
+
+
+
+
+FUNCIONES NULAS IFNULL(),ISNULL(),COALESCE() y NVL()
+
+
+
+
+
+PROCEDIMIENTOS ALMACENADOS 
+	Es un codigo SQL preparado que se puede reutilizar; si se tiene una consulta SQL se puede guardar como un procedimiento almacenado.
+		CREATURE PROCEDURE procedure_name
+		AS
+		sql_statement
+		GO;
+
+Ejecutar un procedimiento almacenado
+		EXEC procedure_name;
+
+Crear un procedimiento almacenado denominado SelectAllCustomers que selecciona todos los registros de la tabla Customres:
+		CREATE PROCEDURE SelectAllCustomres
+		AS
+		SELECT * FROM Customres
+		GO;
+Ejecutar el procedimiento
+		EXEC SelectAllCustomres;
+
+PROCEDIMIENTO ALMACENADO CON UN PARAMETRO:
+Crear un procedimiento almacenado que selecciona Clientes de una Ciudad en particular de la tabla Clientes:
+		CREATE PROCEDURE SelectAllCustomres @City nvarchar(30)
+		AS
+		SELECT * FROM Customers WHERE City = @City
+		GO;
+Ejecutar el procedimiento almacenado:
+		EXEC SelectAllCustomres @City = 'London';
+
+PROCEDIMIENTO ALMACENADO CON MULTIPLES PARAMETROS
+	Enumerar cada parametro y el tipo de datos separados por una coma.
+Crear un procedimiento almacenado que selecciona Clientes de una Ciudad particular con Codigo Postal particular de la tabla "CLientes":
+		CREATE PROCEDURE SelectAllCustomers @City nvarchar(30), @PostalCOde nvarchar(10)
+		AS
+		SELECT * FROM Customers WHERE City = @City AND PostalCode = @PostalCode
+		GO;
+Ejecutar el procedimiento:
+		EXEC SelectALLCUstomres @City = 'London',@PostalCOde = 'WA1 1DP';
+
+
+
+
+
+OPERADORES ARITMETICOS
+	SELECT 30 + 20; --ADD
+	SELECT 50 - 20; --SUBTRACT
+	SELECT 25 * 60; --MULTIPLY
+	SELECT 100 / 5; --DIVIDE
+	SELECT 180 % 20; --MODULO
+
+OPERADORES bit A bit 
+	& AND
+	| OR
+	^ OR
+
+OPERADORES DE COMPARACION
+	= 
+	>
+	<
+	>=
+	<=
+	<>
+
+OPERADORES COMPUESTOS
+	+=
+	-=
+	*=
+	/=
+	%=
+	&=
+	^-=
+	|*=
+
+OPERADORES LOGICOS
+	ALL	TRUE if all subquery values meet the conditon
+			SELECT ProductName FROM Products WHERE ProductID = ALL (Select ProductID FROM OrderDetails WHERE Quantity = 10);
+
+	AND 	TRUE if all the conditions separated by AND is TRUE
+			SELECT * FROM Customers WHERE City = "London" AND Country = "UK";
+
+	ANY 	TRUE if any of the subquery values meet the condition
+			SELECT * FROM Products WHERE Price > ANY (SELECT Price FROM Productus WHERE Price > 50);
+
+	BETWEEN		TRUE if the operand is within the range of comparisons
+				SELECT * FROM Prodcuts WHERE Price BETWEEN 50 AND 60;
+
+	EXIST 	TRUE if the subquery returns one or more records
+			SELECT SupplierName FROM Suppliers WHERE EXIST (SELECT ProductName FROM Products.SupplierID = Suppliers.supplierdID AND Price < 20);
+
+	IN	TRUE if the operand is equal to one of a list of expressions
+			SELECT * FROM Customres WHERE City IN ('Paris','London');
+
+	LIKE	TRUE if the operand matches a pattern
+			SELECT * FROM Customres WHERE CIty LIKE 's%';
+
+	NOT 	Displays a record if the conditons is NOT TRUE
+			SELECT * FROM Customres WHERE CIty NOT LIKE 's%';
+
+	OR	TRUE if any of the conditions separated by OR is TRUE
+			SELECT * FROM Customres WHERE CIty = "London" OR Country = "UK";
+
+	SOME 	TRUE if any of the subquery values meet the condition
+		SELECT * FROM Products WHERE Price > SOME (SELECT Price FROM Prodcuts WHERE Price > 20);
+
+
+
+
+			
+		
+
+CREAR BASE DE DATOS
+-CREATE DATABASE-crea una nueva base de datos
+	CREATE DATABSE databasename;
+
+
+
+DESCARTAR BASE DE DATOS
+-DROP DATABASE- Descarta una base de datos exitente
+	DROP DATABASE databasename;
+
+
+ESPALDO DE BASE DE DATOS
+-BACKUP DATABASE- Se usa en SQL Server para crear una copia de seguridad completa de una base de datos
+	BACKUP DATABASE databasename
+	TO DISK = 'filepath';
+Una copia de seguridad diferencial solo realiza una copia de seguridad de las partes de la base de datos que han cabiado desde la ultima copia de seguridad completa de la base de datos.
+	BACKUP DATABSE databasename
+	TO DISK = 'filepath'
+	WITH DIFFERENTIAL;
+Crear una copia de seguridad en el disco D
+	BACKUP DATABASE testDB
+	TO DISK = 'D:\backups\testDB.bak';
+
+
+
+
+CREAR UNA TABLA
+-CREATE TABLE- crea una nueva tabla
+	SELECT TABLE table_name(column1 datatype, columnN datatype); parametros
+Crear una tabla llamada Persona con 5 columnas:
+	CREATE TABLE Persons(PersonID int, LastName varchar(255), FirstName varchar(255),Addres varchar(255),City varchar(255));
+
+Crear una tabla usando otra tabla 
+	La nueva tabla obtiene las mismas definiciones de columna. Se puede seleccionar todas las ccolumnas o columnas especificas.
+		CREATE TABLE new_Table_name AS SELECT column1, column2 FROM existing_table_name WHERE ....;
+Crear una nueva tabla llmada TestTable, que es una copia de la tabla Clientes:
+		CREATE TABLE TestTable AS SELECT customername,contactname FROM customers;
+
+
+
+
+ELIMINAR UNA TABLA
+-DROP TABLE- elimina una tabla existente en la base de datos.
+	DROP TABLE table_name;
+
+
+ELIMINAR DATOS DENTRO DE UNA TABLA
+-TRUNCATE TABLE- Elimina datos dentreo de una table, pero no la tabla en si.
+	TRUNCATE TABLE table_name;
+
+
+MODIFICACION DE LA TABLA
+-ALTER TABLE- se utiliza para agregar, eliminar o modificar columnas en una tabla existente; ademas se usa para agregar y eliminar varias restricciones en una tabla.
+
+Añadir Columna:
+	ALTER TABLE table_name ADD column_name datatype;
+Agregar una columna Email a la tabla Clientes
+	ALTER TABLE Customres ADD Email varchar(255);
+
+Eliminar Columna:
+	ALTER TABLE table_name DROP COLUMN column_name;
+	ALTER TABLE Customers DROP COLUMN Email;
+
+Cambiar nombre de la columna:
+	ALTER TABLE table_name
+	RENAME COLUMN old_name to new_name;
+
+Alterar/ Modificar tipo de datos
+ACCESS:
+ALTER TABLE table_name
+ALTER COLUMN column_name datatype;
+ORACLE:
+ALTER TABLE table_name
+MODIFY COLUMN column_name datatype;
+
+
+
+
+RESTRICCIONES
+	Se utilizar para especificar reglas para los datos de una tabla.
+	Se pueden especificar cuando se crea la tabla con la instruccion CREATE TABLE o despues con la instruccion ALTER TABLE
+		CREATE TABLE table_name( column1 datatype constraint, columnN datatype constraint);
+Se utilizan para limitar el tipo de datos que pueden incluirse en uan tabla. Asegura la precision y confiabilidad de los datos en la tabla.
+Si existe alguna violacion entre la restriccion y la accion de datos, la accion de aborta.
+Las restriccion pueden ser de nivel de columna o de tabla. Las restriccion de nivel de columna se plican a una columna y las de tablas a tablas.
+Restricciones usadas comunmente:
+	NOT NULL : La columna no puede tener valores NULL.
+	UNIQUE: Todos los valores de la columna deben ser diferentes.
+	PRIMARY KEY : Una combinacion de NOT NULL y UNIQUE, identifica de forma unica cada fila en una tabla.
+	FOREING KEY : Previene acciones que destruirian enlaces entre tablas.
+	CHECK : Aegura que los valores en una columna satisfagan una condicion especifica.
+	DEFAULT : Establece un valor predeterminado para una columna si no se especifica ningun valor
+	CREATE INDEX: Crear y recupera datos de la base de datos muy rapidamente.
+
+
+Restriccion NO NULO NOT NULL
+De forma determinada, una columna puede contener valores NULL.
+-NOT NULL- Obliga a una columna a NO aceptar valores NULOS.Obliga siempre al campo a que tenga un vlaor, no se puede insertar un nuevo registro o
+actualizar un registro sin agregar un valor a este campo.
+	CREATE TABLE Persons(
+		ID int NOT NULL, LastName varchar(255) NOT NULL, FirstName varchar(255) NOT NULL, Age int);
+
+Ingresar una nueva columna:
+	ACCESS:
+	ALTER TABLE Persons ALTER COLUMN Age int NOT NULL;
+	MySQL:
+	ALTER TABLE Persons MODIFY COLUMN Age int NOT NULL;
+
+
+
+
+RESTRICCION UNICA
+-UNIQUE- Asegura que todos los valores en una columna sean diferentes.
+Las restriccione UNIQUE como PRIMARY KEY proporcionan una garantia de exclusividad para una columna o conjunto de columnas.
+Una PRIMARY KEY tiene automaticamente una restriccion UNIQUE.
+En una tabla se puede tener muchas UNIQUE, pero solo una PRIMARY KEY.
+ACCESS:
+	CREATE TABLE Persons (
+    ID int NOT NULL UNIQUE,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int
+);
+MySQL:
+	CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    UNIQUE (ID)
+);
+
+
+Para nombre una restriccion UNIQUE y definir una restriccion UNIQUE en varias columnas:
+	CREATE TABLE Persons(
+		ID int NOT NULL, LastName varchar(255) NOT NULL,
+		FirstName varchar(255),
+		Age int,
+		CONSTRAINT UC_Person UNIQUE (ID,LastName));
+
+
+Crear una restrccion en una columna cuando ya ha sido creada:
+	ALTER TABLE Persons ADD UNIQUE (ID);
+
+Nombrar una restriccion UNIQUE y definir una restriccion UNIQUE en varias columnas:
+	ALTER TABLE Persons ADD CONSTRAINT UC_Person UNIQUE (ID,LastName);
+
+Descartar una restriccion UNIQUE 
+MySQL:
+	ALTER TABLE Persons
+	DROP INDEX UC_Person;
+ACCESS:
+	ALTER TABLE Persons
+	DROP CONSTRAINT UC_Person;
+
+
+
+RESTRICCION DE CLAVE PRIMARIA PRIMARY KEY
+-PRIMARY KEY- Identifica de forma unica cada registro en una tabla; deben contener valores unicos y no pueden contener valores nulos.
+		Una tabla solo puede contener una clave primaria.
+MySQL:
+	CREATE TABLE Persons( ID int NOT NULL, LastName varchar(255) NOT NULL, FirstName varchar(255) Age int PRIMARY KEY(ID));
+ACCESS:
+CREATE TABLE Persons (
+    ID int NOT NULL PRIMARY KEY,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int
+);
+
+Crear una restriccion en varias columnas:
+CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    CONSTRAINT PK_Person PRIMARY KEY (ID,LastName)
+);
+El valor de la clave primaria de compone de 2 columnas(ID + Apellido).
+
+Crear una Clave Primaria cuando ya esta creada la tabla:
+	ALTER TABLE Persons
+	ADD PRIMARY KEY (ID);
+
+Nombrar una PRIMARY KEY y definir una restriccion PRIMARY KEY en varias columnas:
+	ALTER TABLE Persons
+	ADD CONSTRAINT PK_Person PRIMARY KEY (ID,LastName);
+
+Descarta una restriccion Clave Primaria:
+MySQL:
+	ALTER TABLE Persons
+	DROP PRIMARY KEY;
+ACCESS:
+	ALTER TABLE Persons
+	DROP CONSTRAINT PK_Person;
+
+
+
+RESTRICCION CLAVE EXTERNA:
+-FOREING KEY- Se utiliza para evitar acciones que destruirian enlances entre tablas. Es una coleccion de campos en una tabla porque se refiere a PRIMERY KEY en otra tabla.
+		La tabla que contiene clave externa se denomina tabla secundaria, y la tabla con la clave primaria es la tabla principal o de referencia.
+		Evita que se inserten datos no validos en la columna de clave externa, porque tiene que ser uno de los valores contenidos en la tabla principal.
+
+Crear una FOREING KEY en la columna PersonID cuando se crea la tabla Pedidos:
+MySQL:
+	CREATE TABLE Orders(
+		OrderID int NOT NULL,
+		OrderNumber int NOT NULL,
+		PersonID int,
+		PRIMARY KEY (OrderID),
+		FOREING KEY (PersonID) REFERENCES Persons (PersonID));
+
+ACCESS:
+	CREATE TABLE Orders (
+    OrderID int NOT NULL PRIMARY KEY,
+    OrderNumber int NOT NULL,
+    PersonID int FOREIGN KEY REFERENCES Persons(PersonID)
+);
+
+
+
+Nombrar una restriccion FOREING KEY y definir una restriccion FOREING KEY en varias columnas:
+	CREATE TABLE Orders( OrderID int NOT NULL, OrderNumber int NOT NULL, PersonID int, PRIMARY KEY(OrderID),CONSTRAINT FK_PersonOrder FOREING KEY (PersonID) REFERENCES Persons(PersonID));
+
+Crear una restriccion de clave externa cuando la tabla pedidos ya esta creada:
+	ALTER TABLE Orders
+	ADD FOREING KEY (PersonID) REFERENCES Persons(PersonID);
+
+Crear una restriccion FOREING KEY y definir una FOREING KEY en varias columnas:
+	ALTER TABLE Orders
+	ADD CONSTRAINT FK_PersonOrder
+	FOREING KEY (PersonID) REFERENCES Person(PersonID);
+
+Descarta una FOREING KEY
+MySQL:
+	ALTER TABLE Orders
+	DROP FOREING KEY FK_PersonOrder;
+ACCESS:
+	ALTER TABLE Orders
+	DROP CONSTRAINT FK_PersonOrder;
+
+
+
+
+RESTRICCION DE VERIFICACION(Comprobacion)
+-CHECK- Se utiliza para limitar el rango de valores que se puede colocar en una columna, se define esta restriccion en una columna, solo permitira ciertos valores para esta columna.
+	Se defina esta restriccion en una tabla, puede limitar los valoresen ciertas columnas en funcion de los valores en otras columnas de la fila.
+
+Verificacion en CREATE TABLE
+Se crea una restriccion CHECK en la columna Edad cunado se crea la tabla Personas. CHECK asegura que la edad de una persona debe ser de 18 años o mas:
+MySQL:
+	CREATE TABLE Persons( ID int NOT NULL, LastName varchar(255) NOT NULL, FirstName varchar(255), Age int, CHECK (Age >=18));
+ACCESS:
+CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int CHECK (Age>=18)
+);
+
+Verificacion en ALTER TABLE
+	ALTER TABLE Persons ADD CHECK (Age >= 18);
+Nombre una restriccion CHECK y definir una restricion CHECK en varias columnas:
+	ALTER TABLE Persons
+	ADD CONSTRAINT CHK_PersonAge CHECK (Age >= 18 AND City = 'Sandnes');
+Descartar una restriccion CHECK:
+MySQL:
+	ALTER TABLE Pesrons
+	DROP CHECK CHK_PersonAge;
+ACCESS:
+ALTER TABLE Persons
+DROP CONSTRAINT CHK_PersonAge;
+	
+
+
+
+
+
+RESTRICCION VALOR PREDETERMINADO
+-DEFAULT- Establece valor predeterminado para una columna; el valor predeterminado se agregara a todos los resgistros nuevos, si no se especifica ningun valor.
+Establecer un valor DEFAULT para la columna Ciudad cuando se crea la tabla Personas:
+	CREATE TABLE Persons( ID int NOT NULL, LastName varchar(255) NOT NULL, FirstName varchar(255), Age int, City varchar(255) DEFAULT 'Sandnes');
+Inser valores del sistema usando la funcion GETDATE():
+	CREATE TABLE Orders( ID int NOT NULL, OrderNumber int NOT NULL, OrderDate date DEAFULT GETDATE());
+
+DEFAULT en ALTER TABLE
+MySQL:
+	ALTER TABLE Persons
+	ALTER City SET DEFAULT 'Sandnes';
+ACCESS:
+	ALTER TABLE Persons
+	ALTER COLUMN City SET DEFAULT 'Sandnes';
+La palabra SET se utiliza para actualizar columna.
+
+Descartar restriccion DEFAULT
+MySQL:
+	ALTER TABLE Persons
+	ALTER City DROP DEFAULT;
+ACCESS:
+	ALTER TABLE Persons
+	ALTER COLUMN City DROP DEFAULT;
+
+
+
+
+
+
+INDICES
+-INDEX- CREATE INDEX : Declaracion para crear indices en las tablas.
+Los indices se utilizan para recuperar datos de la base de datos mas rapidamente que de otra manera. Los usuarios no pueden ver los indices, solo se utilizan para acelerar las busquedas/consultas.
+Actualizar una tabla con indices lleva mas timepo que actualizar una tabla sin ellos.
+	CREATE INDEX index_name ON table_name(column1,columnN);
+
+Crear unico indice:
+	CREATE UNIQUE INDEX index_name ON table_name (column1, columnN);
+
+Crear un indice llamada idx_lastname en la columna LastName en la tabla Persons:
+	CREATE INDEX idx_lastname ON Persons (LastName);
+Crear un indice en una combinacion de columnas:
+	CREATE INDEX idx_pname ON Persons (LastName, FirstName);
+Eliminar un indice de la tabla:
+ACCESS:
+	DROP INDEX index_name ON table_name;
+MySQL:
+	ALTER TABLE table_name DROP INDEX index_name;
+
+
+
+
+
+INCREMENTO AUTOMATICO
+-AUTO INCREMENT- Permite generar automaticamente un numero unico cuando se inserta un nuevo registro en una tabla; a menudo se utiliza como la clave princiapl.
+	CREATE TABLE Persons( Personid int NOT NULL AUTO_INCREMENT, LastName varchar(255) NOT NULL,Age int, PRIMARY KEY(Personid));
+De forma predeterminada el valor inicial para AUTO_INCREMENT es 1 y se incrementara en 1 cada nuevo registro.
+Para que AUTO_INCREMENT comience con tro valor:
+	ALTER TABLE Persons AUTO_INCREMENT = 100;
+Para insertar un nuevo resgitro en la tabla Persona, no tendremos que especificar un valor para la columna Personid, se agrega automaticamente el valor:
+	INSERT INTO Persons (FirstName,LastName) VALUES ('Lars','Monsen');
+IDENTITY es una palabra clave para realizar una funcion de incremento automatico.
+	CREATE TABLE PErsons( Personid int IDENTITY /(1,1) PIRMARY KEY, LastName varchar(255) NOT NULL, FirstName varchar(255) NOT NULL, Age int);
+SE muestra el valor inicia de IDENTITY es 1 y se incrementara en 1 por cada nuevo registro.
+Si se quiere especicar que la columna debe comenzar en el valor 10 y aumentar en 5, se debe escribir IDENTITY (10,5).
+
+	
+ACCESS:
+CREATE TABLE Persons (
+    Personid AUTOINCREMENT PRIMARY KEY,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int
+);
+
+
+
+
+
+
+
+TRABAJANDO CON FECHAS
+	Para trabajar con este formato se debe asegurar que el formato de la fecha coincida con el formato de la columna de fecha en la base de datos.
+
+MySQL:
+	DATE - AAAA-MM-DD
+	DATETIME - AAA-MM-DD HH:MI:SS
+	MALLDATETIME - AAA-MM-DD HH:HI:SS
+	TIMESTAMP - un numero unico
+
+Seleccionar registros con una echa de 2008-11-11
+SELECT * FROM Orders WHERE OrderDate = '2008-11-11'
+
+
+
+
+
+
+
+VISTAS
+-CREATE VIEW- una vista es una tabla virtual basada en el conjunto de rsultados de una instruccion SQL.
+	CREATE VIEW view_name AS SELECT column1,column2 FROM table_name WHERE condition;
+Crear una vista que muestra todos lo clientes de Brasil:
+	CREATE VIEW [Brazil,Customres] AS SELECT CustomerName,ContacName FROM Customers WHERE Country = 'Brazil';
+Consultar la vista:
+	SELECT * FROM [BRAZIL Customres];
+Crear una vista que selcciona todos los productis de la tabla Productos con un precio superior al precio medio:
+	CREATE VIEW [Products Above Average Price] AS SELECT ProducName , Price FROM Products WHERE Price > (SELECT AVG(Price) FROM Products);
+Consultar la vista:
+	SELECT * FROM [Prodcuts Above Average Price];
+
+
+
+
+
+
+
+
+INYECCION SQL
+	Es una tecnica de inyeccion de codigo que podria destrui su base de datos; es una tecnica de pirateria web mas comun.
+	La inyeccion SQL es la colocacion de codigo malicioso en declaraciones SQL, a traves de la entrada de una pagina web.
+SQL en paginas web.
+	La inyeccion SQL generalmente ocurre cuando le pide a un usuario que ingrese, como su nombre de usuario/ID de usuario, y en lugar de un nombre/ID, el usuario 
+	le da una instruccion SQL que, sin saberlo, ejecutara en us base de datos.
+
+En el siguiente ejemplo que crea una declaracion SELECT agregando una variable(txtUserId) a una cadena de seleccion. La variable se obtine de la entrada del usuario(getRequestString):
+	txtUserId = getRequestString("UserId");
+	txtSQL = "SELECT * FROM Users WHERE UserId = " + txtUserId;
+
+LA INYECCION SQL BASADA EN 1 = 1 ES SIEMPRE VERDADERA
+	En el ejemplo , el proposito del codigo era crear una instruccion SQL para seleccionar un usuario, con una identificacion de usuario determinada.
+	Si no nada que impida que un usuario ingresa una entrada incorrecta, el usuario puede ingresar alguna entrada inteligente como esta:
+		ID de usuario : 105 OR 1 = 1
+	La declaracion SQL seria: SELECT * FROM Users WHERE UserId = 105 OR 1=1;
+	EL SQL anterios es valido y devolvera TODAS las filas de la tabla Usuarios, ya que OR 1=1 siempre en VERDADERO.
+	La declaracion anterios es similar a : SELECT UserId, Name, Password FROM Users WHERE UserId = 105 or 1 = 1;
+
+LA INYECCION SQL EN ""="" ES SIEMPRE VERDADERA
+	nombre usuario : Carlos
+	Contraseña: myPass
+	uName = getRequestString("username");
+	uPass = getRequestString("userpassword");
+	sql = 'SELECT * FROM Users WHERE Name = "'+UName + '"AND Pass = "' + uPass + '"'
+	SELECT * FROM Users WHERE Name = "John Doe" AND Pass = "myPass"
+Un hacker podria acceder de la siguiente forma:
+	nombre usuario : "or""="
+	Contraseña : "or""="
+EL codigo en el servidor creara una instruccion SQL valida :
+	SELECT * FROM Users WHERE Name ="" or ""=""AND Pass ="" or ""=""
+devolvera todas las filas de la tabla Usuarios, ya que OR""="" siempre en VERDADERO.
+
+INYECCON SQL BASADA EN SENTENCIA SQL POR LOTES
+La mayoria de las bases de datos admiten sentencia SQL por lotes.
+Un lote de sentencias SQL es un grupo de dos o mas sentencias SQL, separa por punto y coma.
+La siguiente declaracion SQL a continuacion devolvera todas las filas de latabla Usuraios, luego elimanra la tabla Proveedores:
+	SELECT * FROM Users; DROP TABLE Suppliers
+	txtUserId = getRequestString("UserId");
+	txtSQL = "SELECT * FROM Users WHERE UserId = " + txtUserId;
+	La entrada seria:
+	ID usuario : 105;DROP TABLE Suppliers
+	SELECT * FROM Users WHERE UserId = 105; DROP TABLE Suppliers;
+
+USAR PARAMETROS DE SQL PARA LA PROTECCION
+	Se utilizar para proteger un sitio web de la inyeccion. Los parametros SQL son valores que se agrega a una consulta SQL en el momento de la ejecucion, de manera controlada.
+Ejemplo de ASP.NET Razor
+	txtUserId = getRequestString("UserId");
+	txSQL = "SELECT * FROM Users WHERE UserId = @0";
+	db.Execute(txtSQL,txtUserId);
+Los parametros se representa en la instruccion SQL mediante un marcador @
+El motor SQL verificara cada prametro para asegurarse de que sea correcto para su columna y se trate loteralmente, y no como parte del SQL que se ejecutara.
+	txtNam = getRequestString("CustomerName");
+	txtAdd = getRequestString("Address");
+	txtCit = getRequestString("City");
+	txtSQL = "INSERT INTO Customers (CustomerName,Address,City) Values(@0,@1,@2)";
+	db.Execute(txtSQL,txtNam,txtAdd,txtCit);
+Se deben crear consultas parametrizadas en algunos lenguajes web.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ALOJAMIENTO SQL
+-HOSTING- Si dese que su sitio web pueda almacenar y recuperar datos de una base de datos, su servidor web debe tenr acceso a un sistema de base de datos que utilice el lenguaje SQL.
+	Si su sitio web esta alojado por un proveedor de servicios de Internet(ISP) debera buscar planes de alojamiento SQL.
+MySQL:
+	Base de datos para sitios web, muy potente, robusto y con todas la funciones; es una alternativa economica a las costosas soluciones de Microsoft y Oracle.
+ACCESS:
+	No es adecuado para un trafico muy alto y no es tan potente.
+
+
+
+
+
+
+TIPOS DE DATOS
+PALABRAS CLAVES
+FUNCIONES : cadena,numerica,fecha,avanzadas
+FUNCIONES DEL SERVIDOR: cadenas, matematicas/numericas,fecha,avanzadas
+
+
+
+
+
+
+ALTER DATABASE- modifica una base de datos
+
+ALTER TABLE- modifica una tabla
+
+CREATE INDEX- crea un índice (clave de búsqueda)
+DROP INDEX- elimina un índice
