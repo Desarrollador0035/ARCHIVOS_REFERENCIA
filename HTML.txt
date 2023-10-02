@@ -10,7 +10,7 @@ Los elementos le dicen al navegador como mostrar su contenido.
 <body> : define el cuerpo del documento y es un contenedor de todos los contenidos visibles.
 
 
-¿QUE ES UN ELEMENTOS?
+Â¿QUE ES UN ELEMENTOS?
 Se define mediante una etiqueta de inicio, algo de contenido y una etiqueta de cierre.
 <nombre etiqueta> contenido </nombre de etiqueta>
 Los elementos que no tiene etiqueta final, se les conoce como elementos vacios.
@@ -101,7 +101,7 @@ Define la fuente que se utilizara
 <h1 style ="font-family:verdana;">This is a heading</h1>
 
 PROPIEDAD CSS font-size
-Define el tamaño del texto de un elemento
+Define el tamaÃ±o del texto de un elemento
 <h1 style="font-size:300%;"></h1>
 
 PROPIEDAD CSS text-aling
@@ -121,7 +121,7 @@ CURSIVA
 ENFATIZADO
 <em></em>
 
-PEQUEÑO
+PEQUEÃ‘O
 <small>Text</small>
 
 RESALTAR TEXTO DE COLOR
@@ -204,7 +204,7 @@ HSL: H(matiz = Hue) S(saturation) L(luminosidad = lightness)
 	hsl(tono,saturacion,luminosidad)
 <h1 style="background-color:hsl(0, 100%, 50%);">hsl(0, 100%, 50%)</h1>
 
-RGBA: (rojo,verde,azul,alfa) se añade un cuarto canal alpha, para crear opacidad.
+RGBA: (rojo,verde,azul,alfa) se aÃ±ade un cuarto canal alpha, para crear opacidad.
 HSLA : con opacidad.
 
 
@@ -216,8 +216,8 @@ No necesariamente tiene que ser texto, puede ser una imagen o otro elemeto HTML.
 El atributo href: indica el destino de enlace.
 Atributos para especificar el destino del enlace:
 	target = especifica donde abrir el documento con los siguientes valores:
-		_sefl: abre el documento en la misma ventan/pestaña.
-		_blank: abre el documento en una nueva ventana/pestaña
+		_sefl: abre el documento en la misma ventan/pestaÃ±a.
+		_blank: abre el documento en una nueva ventana/pestaÃ±a
 		_parent: abre el documento en el marco principal
 		_top: abre el documento en el cuerpo completo de la ventana.
 <a href="https://www.w3schools.com/" target="_blank">Visit W3Schools!</a>
@@ -331,7 +331,7 @@ Se utiliza la propiedad CSS : background-image
 <p style="background-image: url('img_girl.jpg');">
 
 ELEMENTO <picture>
-Permite mostrar diferentes imagenes para diferentes dispositivos o tamaños de pantalla.
+Permite mostrar diferentes imagenes para diferentes dispositivos o tamaÃ±os de pantalla.
 Puede contener uno mas <source>, cada uno de los cuales hace referencia a diferentes iamgenes a traves del atributo srcset,
 de esta manera el navegador puede elegir la imagen que mejor se ajuste a la vista y/o dispositivo actual.
 cada <source> tiene un atributo media que define cuando la imagen es la adecuada.
@@ -350,7 +350,7 @@ lo utilizan navegadores que no admiten <picture> o si ninguna del etiquetas coin
 
 
 FAVICON HTML
-Es una pequeña imagen junto al titulo de la pagina en la pestaña del navegador.
+Es una pequeÃ±a imagen junto al titulo de la pagina en la pestaÃ±a del navegador.
 Puedo crear mis propios favicon con https://www.favicon.cc
 
 <!DOCTYPE html>
@@ -383,6 +383,23 @@ The content of the document......
 
 </body>
 </html>
+
+
+
+HEAD - CABEZA- EL ELEMENTO PRINCIPAL
+EL elemento <head> en un contenedor para los siguientes elementos: 
+*-<title> : define el titulo en la barra de herramientas.
+*-<style>: define el estilo.
+*-<meta>: Defne caracteres, palabras claves para motores de busqueda, descripcion de su pagina web, autor, actualizar el documento cada 30 segundos, configuracion
+de la ventana grafica para que el sitio web se vea en otros dispositivos.
+*-<link>: define relacion entre el documento actual y un recurso externo, con mayor frecuencia se usa para vincular hojas de estilos externas.
+<script> y <base>.
+Este elemento <head> es un contenerdor de metadatos: titulo del documento, el juego de caracteres, los estilos, los scripts y otra metainformacion.
+
+
+
+
+
 
 
 
